@@ -132,6 +132,7 @@ GamingLive.prototype = {
                     _.map(channel.planning, function (event) {
                         event.start = moment(event.start).toDate();
                         event.end = moment(event.end).toDate();
+                        event.is_current = _.isEqual(_.pick(channel.emission, 'start', 'end'), _.pick(event, 'start', 'end'));
 
                         return event;
                     }, channel.planning);
