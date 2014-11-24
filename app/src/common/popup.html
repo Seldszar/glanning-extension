@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html ng-app="popup">
+	<head>
+		<meta charset="UTF-8">
+		<title>Gaming Live</title>
+		<link rel="stylesheet" href="css/font-awesome.min.css">
+		<link rel="stylesheet" href="css/popup.css">
+	</head>
+	<body>
+		<header id="header">
+			<div id="header-inner">
+				<div id="menu">
+					<a ui-sref="channels" ng-class="{ active: $state.includes('channels') }">Chaines</a>
+					<a ui-sref="schedule.show({ id: 1 })" ng-class="{ active: $state.includes('schedule') }">Planning</a>
+					<a ui-sref="infos.about" ng-class="{ active: $state.includes('infos') }">Infos</a>
+				</div>
+				<img src="img/logo.png" alt="Gaming Live">
+			</div>
+			<div ui-view="sub-menu"></div>
+		</header>
+		<main id="content">
+			<div id="content-inner" ui-view></div>
+		</main>
+		<script src="kango-ui/kango_api.js"></script>
+		<script src="js/lib/angular.min.js"></script>
+		<script src="js/lib/angular-ui-router.min.js"></script>
+		<script src="js/lib/i18n/angular-locale_fr-fr.js"></script>
+		<script src="js/popup.js"></script>
+	</body>
+</html>
