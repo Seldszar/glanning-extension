@@ -1,6 +1,6 @@
 {
   "name": "gaming-live",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Restez informé(e) de tout ce qu'il se passe sur Gaming Live.",
   "license": "MIT",
   "devDependencies": {
