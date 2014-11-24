@@ -1,0 +1,31 @@
+{
+    "content_scripts": [],
+    "description": "Restez informé(e) de tout ce qu'il se passe sur Gaming Live.",
+    "creator": "Seldszar",
+    "background_scripts": [
+        "js/lib/underscore.min.js",
+        "js/lib/moment.min.js",
+        "js/background.js"
+    ],
+    "homepage_url": "http://seldszar.fr",
+    "version": "0.0.2",
+    "browser_button": {
+        "caption": "Gaming Live",
+        "icon": "icons/button.png",
+        "tooltipText": "Gaming Live",
+        "popup": {
+            "url": "popup.html",
+            "width": 440,
+            "height": 590
+        }
+    },
+    "permissions": {
+        "context_menu": false,
+        "notifications": true,
+        "web_navigation": false,
+        "xhr": [
+            "*://*.jeuxvideo.com/*"
+        ]
+    },
+    "name": "Gaming Live"
+}
