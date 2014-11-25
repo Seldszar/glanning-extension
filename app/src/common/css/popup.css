@@ -134,7 +134,7 @@ legend {
 
 .checkbox input[type="checkbox"] + span:before,
 .radio input[type="radio"] + span:before {
-    color: #aeaeae;
+    color: #e1e1e1;
     font-family: FontAwesome;
     font-size: 14px;
     display: inline-block;
