@@ -1,4 +1,4 @@
-<div class="event" ng-repeat="event in schedule" ng-init="isOpen = event.is_current" ng-click="isOpen = !isOpen">
+<div class="event" ng-repeat="event in schedule" ng-init="isOpen = event.is_current" ng-click="isOpen = !isOpen" ng-class="{ current: event.is_current }">
     <dl>
         <dd class="date">{{ event.start | date:'shortTime' }} - {{ event.end | date:'shortTime' }}</dd>
         <dt class="title">
