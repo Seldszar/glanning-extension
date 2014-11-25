@@ -54,6 +54,9 @@ GamingLive.prototype = {
             showEmission: true,
             showOffline: false
         },
+        schedule: {
+            highlightCurrent: true
+        },
         notifications: {
             enabled: true,
             favoritesOnly: false
