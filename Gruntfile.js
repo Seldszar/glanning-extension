@@ -85,6 +85,6 @@ module.exports = function (grunt) {
 	grunt.loadTasks('tasks');
 
 	grunt.registerTask('default', ['copy', 'kango:dist']);
-	grunt.registerTask('publish', ['clean', 'bump', 'copy', 'uglify', 'cssmin', 'kango:publish']);
+	grunt.registerTask('publish', ['clean', 'copy', 'uglify', 'cssmin', 'kango:publish']);
 
 };
