@@ -15,7 +15,7 @@
         "tooltipText": "Gaming Live",
         "popup": {
             "url": "popup.html",
-            "width": 440,
+            "width": 400,
             "height": 590
         }
     },
