@@ -10,9 +10,9 @@
     "homepage_url": "http://seldszar.fr",
     "version": "0.2.0",
     "browser_button": {
-        "caption": "Gaming Live",
+        "caption": "GL'anning",
         "icon": "icons/button.png",
-        "tooltipText": "Gaming Live",
+        "tooltipText": "GL'anning",
         "popup": {
             "url": "popup.html",
             "width": 400,
@@ -27,5 +27,5 @@
             "*://*.jeuxvideo.com/*"
         ]
     },
-    "name": "Gaming Live"
+    "name": "GL'anning"
 }
