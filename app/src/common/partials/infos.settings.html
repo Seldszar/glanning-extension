@@ -40,4 +40,30 @@
             </label>
         </div>
     </div>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" ng-model="settings.notifications.playSound">
+            <span>Activer les notifications sonores</span>
+        </label>
+    </div>
+    <div class="subfield">
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="settings.notifications.soundType" value="ding" ng-disabled="!settings.notifications.playSound">
+                <span>ding</span>
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="settings.notifications.soundType" value="chime" ng-disabled="!settings.notifications.playSound">
+                <span>chime</span>
+            </label>
+        </div>
+        <div class="radio">
+            <label>
+                <input type="radio" ng-model="settings.notifications.soundType" value="click" ng-disabled="!settings.notifications.playSound">
+                <span>click</span>
+            </label>
+        </div>
+    </div>
 </div>

@@ -59,7 +59,9 @@ GamingLive.prototype = {
         },
         notifications: {
             enabled: true,
-            favoritesOnly: false
+            favoritesOnly: false,
+            playSound: false,
+            soundName: 'ding'
         }
     },
 
@@ -82,6 +84,10 @@ GamingLive.prototype = {
             return;
         }
 
+        if (settings.notifications.playSound) {
+            this._playSound(settings.notifications.soundName);
+        }
+
         var notificationText = channel.titre + ' vient de commencer.';
 
         if (channel.emission) {
@@ -93,6 +99,14 @@ GamingLive.prototype = {
                 url: 'http://www.jeuxvideo.com' + channel.url
             });
         });
+    },
+
+    _playSound: function (name) {
+        try {
+            var sound = new Audio();
+            sound.src = kango.io.getResourceUrl('audio/' + name + '.mp3');
+            sound.play();
+        } catch (e) {}
     },
 
     log: function () {
