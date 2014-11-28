@@ -11,7 +11,8 @@ module.exports = function (grunt) {
 			options: {
 				files: ['package.json', 'app/src/common/extension_info.json'],
 				updateConfigs: ['pkg'],
-				commit: false,
+				commitMessage: 'Mise à jour de la version des fichiers',
+				commitFiles: ['package.json', 'app/src/common/extension_info.json'],
 				createTag: false,
 				push: false
 			}

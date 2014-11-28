@@ -1,3 +1,13 @@
 {
-    "id": "{8C65ACAC-8A0F-4EC4-B384-DC874AAB4EBD}"
+    "id": "{8C65ACAC-8A0F-4EC4-B384-DC874AAB4EBD}",
+    "browser_button": {
+        "caption": "GL'anning",
+        "icon": "icons/button.png",
+        "tooltipText": "GL'anning",
+        "popup": {
+            "url": "popup.html",
+            "width": 400,
+            "height": 590
+        }
+    }
 }

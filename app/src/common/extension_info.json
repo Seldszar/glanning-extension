@@ -8,10 +8,10 @@
         "js/background.js"
     ],
     "homepage_url": "http://seldszar.fr",
-    "version": "0.3.2",
+    "version": "0.4.0",
     "browser_button": {
         "caption": "GL'anning",
-        "icon": "icons/button.png",
+        "icon": "icons/icon32.png",
         "tooltipText": "GL'anning",
         "popup": {
             "url": "popup.html",
