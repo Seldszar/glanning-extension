@@ -65,6 +65,8 @@ GamingLive.prototype = {
         }
     },
 
+    _soundAlreadyPlayed: false,
+
     _setOffline: function() {
         kango.ui.browserButton.setBadgeValue('?');
     },
@@ -84,8 +86,9 @@ GamingLive.prototype = {
             return;
         }
 
-        if (settings.notifications.playSound) {
+        if (settings.notifications.playSound && !this._soundAlreadyPlayed) {
             this._playSound(settings.notifications.soundName);
+            this._soundAlreadyPlayed = true;
         }
 
         var notificationText = channel.titre + ' vient de commencer.';
@@ -94,7 +97,7 @@ GamingLive.prototype = {
             notificationText = channel.emission.title + ' sur ' + notificationText;
         }
 
-        kango.ui.notifications.show('Gaming Live', notificationText, 'icons/icon100.png', function () {
+        kango.ui.notifications.show('GL\'anning', notificationText, 'img/notification-icon.png', function () {
             kango.browser.tabs.create({
                 url: 'http://www.jeuxvideo.com' + channel.url
             });
@@ -125,6 +128,8 @@ GamingLive.prototype = {
             async: true,
             contentType: 'json'
         };
+
+        self._soundAlreadyPlayed = false;
 
         kango.xhr.send(details, function (data) {
             self.log('Retrieving data...');
