@@ -7,7 +7,6 @@
         "js/lib/moment.min.js",
         "js/background.js"
     ],
-    "homepage_url": "http://seldszar.fr",
     "version": "0.5.0",
     "browser_button": {
         "caption": "GL'anning",
