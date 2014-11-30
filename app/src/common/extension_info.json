@@ -7,7 +7,7 @@
         "js/lib/moment.min.js",
         "js/background.js"
     ],
-    "version": "0.6.0",
+    "version": "0.6.1",
     "browser_button": {
         "caption": "GL'anning",
         "icon": "icons/icon32.png",
