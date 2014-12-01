@@ -165,13 +165,10 @@ GamingLive.prototype = {
             if (data.status == 200 && data.response != null) {
                 var count = 0;
                 var value = data.response;
-                var data = [];
+                var data = value.streams;
 
                 self.log('Data retrieved.');
                 self.log('Parsing data...');
-
-                value.channels = _.toArray(value.channels);
-                data = _.union(value.channels, value.streams);
 
                 _.map(data, function (channel) {
                     if (channel.emission) {
