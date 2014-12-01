@@ -7,7 +7,7 @@
         "popup": {
             "url": "popup.html",
             "width": 400,
-            "height": 590
+            "height": 540
         }
     }
 }

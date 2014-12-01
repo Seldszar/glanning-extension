@@ -37,7 +37,8 @@ body {
     background: #f2f2f2 url('../img/background.png') no-repeat top left;
     color: #7a7a7a;
     cursor: default;
-    display: table;
+    display: flex;
+    flex-direction: column;
     font-family: 'Roboto Condensed', Arial, sans-serif;
     font-size: 12px;
     height: 540px;
@@ -170,11 +171,6 @@ legend {
     content: "\f192";
 }
 
-#header {
-    display: table-row;
-    height: 50px;
-}
-
 #header-inner {
     padding: 5px 15px;
 }
@@ -195,6 +191,10 @@ legend {
 
 #menu a.active {
     color: #0193d0;
+}
+
+#logo {
+    display: block;
 }
 
 #sub-menu {
@@ -226,7 +226,7 @@ legend {
 
 #content {
     background-color: #fff;
-    height: 100%;
+    flex: 1;
     position: relative;
 }
 
@@ -262,6 +262,15 @@ legend {
 .padded {
     margin: 1em 0;
     padding: 0 10px;
+}
+
+.modal {
+    display: flex;
+    height: 100%;
+}
+
+.modal-inner {
+    margin: auto;
 }
 
 /**

@@ -8,3 +8,8 @@
         <dd class="description" ng-show="isOpen">{{ event.description }}</dd>
     </dl>
 </div>
+<div class="modal" ng-hide="schedule.length">
+    <div class="modal-inner">
+        Il n'y a aucun programme de prévu pour l'instant...
+    </div>
+</div>
