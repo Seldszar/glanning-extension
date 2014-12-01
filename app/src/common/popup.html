@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="popup">
+<html>
 	<head>
 		<meta charset="UTF-8">
 		<title>Gaming Live</title>
@@ -14,7 +14,7 @@
 					<a ui-sref="schedule.show({ id: 1 })" ng-class="{ active: $state.includes('schedule') }">Planning</a>
 					<a ui-sref="infos.about" ng-class="{ active: $state.includes('infos') }">Infos</a>
 				</div>
-				<img src="img/logo.png" alt="Gaming Live" id="logo">
+				<div id="logo" extension-version></div>
 			</div>
 			<div ui-view="sub-menu"></div>
 		</header>

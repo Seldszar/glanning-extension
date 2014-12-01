@@ -194,7 +194,13 @@ legend {
 }
 
 #logo {
-    display: block;
+    background-image: url('../img/logo.png');
+    color: #aeaeae;
+    font-size: 10px;
+    height: 14px;
+    padding-left: 44px;
+    padding-top: 26px;
+    width: 79px;
 }
 
 #sub-menu {
