@@ -127,20 +127,31 @@ directive('openTab', function () {
         }
     }
 }).
+directive('extensionVersion', function () {
+    return {
+        restrict: 'A',
+        template: kango.getExtensionInfo().version
+    }
+}).
 run(['$rootScope', '$state', function ($rootScope, $state) {
     $rootScope.$state = $state;
     $rootScope.settings = {};
-    KangoAPI.onReady(function () {
-        kango.invokeAsync('extension.getSettings', function (settings) {
-            $rootScope.$apply(function () {
-                $rootScope.settings = settings;
-                $rootScope.$watch('settings', function (newVal) {
-                    kango.invokeAsync('extension.setSettings', newVal);
-                }, true);
-            });
+    kango.invokeAsync('extension.getSettings', function (settings) {
+        $rootScope.$apply(function () {
+            $rootScope.settings = settings;
+            $rootScope.$watch('settings', function (newVal) {
+                kango.invokeAsync('extension.setSettings', newVal);
+            }, true);
         });
     });
     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
         ga('send', 'pageview', $state.href(toState, toParams));
     });
 }]);
+
+/**
+ * Bootstrap
+ */
+KangoAPI.onReady(function () {
+    angular.bootstrap(document, ['popup']);
+});
