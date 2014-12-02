@@ -349,7 +349,15 @@ legend {
     top: 15px;
 }
 
-.channel .actions .fa-star-o {
+.channel .actions li {
+    margin-bottom: 2px;
+}
+
+.channel .actions li.show-on-hover {
+    display: none;
+}
+
+.channel .actions a {
     color: #aeaeae;
 }
 
@@ -361,6 +369,10 @@ legend {
     filter: grayscale(1);
     -webkit-filter: grayscale(1);
     opacity: .25;
+}
+
+.channel:hover .actions li.show-on-hover {
+    display: block;
 }
 
 /**
@@ -444,30 +456,4 @@ legend {
     position: absolute;
     right: 10px;
     text-align: center;
-}
-
-/**
- * Dark theme
- */
-
-body.dark-theme {
-    background-color: #121212;
-}
-
-body.dark-theme #content {
-    background-color: #1e1e1e;
-}
-
-body.dark-theme .broadcast,
-body.dark-theme .event {
-    border-bottom-color: #000;
-}
-
-body.dark-theme .broadcast .name,
-body.dark-theme .event .title {
-    color: #fff;
-}
-
-body.dark-theme .broadcast .actions .fa-star-o {
-    color: #000;
 }
