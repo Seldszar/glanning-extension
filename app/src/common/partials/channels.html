@@ -1,4 +1,4 @@
-<div open-tab="http://www.jeuxvideo.com{{ channel.url }}" class="channel" ng-class="{ offline: !channel.is_live }" ng-if="$root.settings.channels.showOffline || channel.is_live" ng-repeat="channel in channels | orderBy:['-is_favorite', '-nb_viewers', 'titre']">
+<div open-tab="{{ channel.url }}" class="channel" ng-class="{ offline: !channel.is_live }" ng-if="$root.settings.channels.showOffline || channel.is_live" ng-repeat="channel in channels | orderBy:['-is_favorite', '-nb_viewers', 'titre']">
     <div class="left">
         <div class="thumbnail" ng-show="$root.settings.channels.showThumbnail">
             <img ng-src="{{ channel.thumbnail_url || 'img/channel-placeholder.png' }}" alt="{{ channel.titre }}">

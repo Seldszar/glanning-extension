@@ -11,6 +11,8 @@
 
     GamingLive.prototype = {
 
+        _baseUrl: 'http://www.jeuxvideo.com',
+
         _refreshTimeout: 60 * 1000,
         _feedUrl: 'http://webtv.jeuxvideo.com/esi/webtv_jv_header.php',
 
@@ -186,6 +188,7 @@
                             return event;
                         }, channel.planning);
 
+                        channel.url = self._baseUrl + channel.url;
                         channel.thumbnail_url = self._thumbnails[channel.id_contenu];
                         channel.is_favorite = self.isFavorite(channel.id_contenu);
 

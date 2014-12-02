@@ -32,7 +32,7 @@
                                 };
                                 $scope.share = function (broadcast) {
                                     kango.browser.tabs.create({
-                                        url: 'https://twitter.com/intent/tweet?text=' + encodeURIComponent('Je regarde actuellement ' + broadcast.titre + ' sur Gaming Live') + '&url=' + encodeURIComponent('http://www.jeuxvideo.com' + broadcast.url)
+                                        url: 'https://twitter.com/intent/tweet?text=' + encodeURIComponent('Je regarde actuellement ' + broadcast.titre + ' sur Gaming Live') + '&url=' + encodeURIComponent(broadcast.url)
                                     });
                                 };
                             }]
