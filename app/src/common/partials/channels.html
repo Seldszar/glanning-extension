@@ -12,9 +12,12 @@
             <dd class="title" ng-show="$root.settings.channels.showEmission && channel.is_live && channel.emission">{{ channel.emission.title }}</dd>
         </dl>
     </div>
-    <ul class="actions">
+    <ul class="actions" open-tab-ignore>
         <li>
-            <a href="#" ng-click="toggleFavorite(channel, $event)"><i class="fa" ng-class="{ 'fa-star-o': !channel.is_favorite, 'fa-star': channel.is_favorite }"></i></a>
+            <a ng-click="favorite(channel)"><i class="fa" ng-class="{ 'fa-star-o': !channel.is_favorite, 'fa-star': channel.is_favorite }"></i></a>
+        </li>
+        <li class="show-on-hover">
+            <a ng-click="share(channel)"><i class="fa fa-share-alt"></i></a>
         </li>
     </ul>
 </div>
