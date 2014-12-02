@@ -1,5 +1,5 @@
 <ul id="sub-menu">
-    <li ng-repeat="channel in channels | filter:{ planning: '!!' }" ui-sref-active="active">
+    <li ng-repeat="channel in channels | filter:{ planning: '!!' } | orderBy:'order_index'" ui-sref-active="active">
         <a ui-sref="schedule.show({ id: channel.id_contenu })">{{ channel.titre }}</a>
     </li>
 </ul>
