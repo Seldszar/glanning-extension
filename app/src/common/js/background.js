@@ -132,7 +132,7 @@
 
             kango.ui.notifications.show('GL\'anning', notificationText, kango.io.getResourceUrl('img/notification-icon.png'), function () {
                 kango.browser.tabs.create({
-                    url: 'http://www.jeuxvideo.com' + channel.url
+                    url: channel.url
                 });
             });
         },
