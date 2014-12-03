@@ -79,7 +79,7 @@
             1838: 'http://image.jeuxvideo.com/gaming-live/competitions/tv-dayone2-petite.jpg'
         },
 
-        _data: [],
+        _data: null,
 
         _settings: {
             channels: {
@@ -226,6 +226,7 @@
                 } else {
                     self.log('Unable to retrieve data!', '(status code: ' + data.status + ')');
 
+                    self._data = null;
                     self._setOffline();
                 }
             });
