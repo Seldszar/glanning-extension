@@ -449,11 +449,16 @@ legend {
 
 .copyright {
     bottom: 0;
-    color: #aeaeae;
-    font-size: 10px;
+    color: #ccc;
+    font-size: 11px;
     left: 10px;
     line-height: 1.4em;
     position: absolute;
     right: 10px;
     text-align: center;
+}
+
+.copyright a {
+    color: inherit;
+    text-decoration: underline;
 }
