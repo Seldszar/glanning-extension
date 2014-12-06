@@ -101,8 +101,13 @@
                     return deferred.promise;
                 },
                 share: function (channel) {
+                    var text = 'Je regarde actuellement ';
+                    if (channel.emission) {
+                        text += channel.emission.title + ' sur ';
+                    }
+                    text += channel.titre + ' sur Gaming Live';
                     kango.browser.tabs.create({
-                        url: 'https://twitter.com/intent/tweet?text=' + encodeURIComponent('Je regarde actuellement ' + channel.titre + ' sur Gaming Live') + '&url=' + encodeURIComponent(channel.url)
+                        url: 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(channel.url)
                     });
                 }
             };
