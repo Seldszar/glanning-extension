@@ -2,11 +2,7 @@
     'use strict';
 
     function GamingLive() {
-        var self = this;
-        self.refresh();
-        window.setInterval(function () {
-            self.refresh();
-        }, self._refreshTimeout);
+        this.refresh();
     }
 
     GamingLive.prototype = {
@@ -79,6 +75,7 @@
             1838: 'http://image.jeuxvideo.com/gaming-live/competitions/tv-dayone2-petite.jpg'
         },
 
+        _error: null,
         _data: null,
 
         _settings: {
@@ -221,25 +218,31 @@
 
                     self.log('Parsing complete.');
 
+                    self._error = null;
                     self._data = value.streams;
                     self._setBadgeCount(count);
                 } else {
                     self.log('Unable to retrieve data!', '(status code: ' + data.status + ')');
 
+                    self._error = data;
                     self._data = null;
                     self._setOffline();
                 }
+
+                window.setTimeout(function () {
+                    self.refresh();
+                }, self._refreshTimeout * (self._error ? 1.5 : 1));
             });
         },
 
-        getChannels: function () {
-            return this._data || [];
+        getChannels: function (callback) {
+            return callback(this._error, this._data || []);
         },
 
-        getSchedule: function (id) {
+        getSchedule: function (id, callback) {
             var channel = _.findWhere(this._data, { id_contenu: id }) || {};
 
-            return channel.planning || [];
+            return callback(this._error, channel.planning || []);
         },
 
         toggleFavorite: function (id) {
