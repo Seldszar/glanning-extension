@@ -17,8 +17,10 @@
                         '@': {
                             templateUrl: 'partials/channels.html',
                             controller: ['$scope', '$stateParams', 'Channels', function ($scope, $stateParams, Channels) {
+                                $scope.error = null;
                                 $scope.channels = [];
-                                Channels.all().then(function (channels) {
+                                Channels.all().then(function (error, channels) {
+                                    $scope.error = error;
                                     $scope.channels = channels;
                                 });
                                 $scope.favorite = function (channel) {
@@ -40,8 +42,10 @@
                         'sub-menu': {
                             templateUrl: 'partials/schedule.sub-menu.html',
                             controller: ['$scope', 'Channels', function ($scope, Channels) {
+                                $scope.error = null;
                                 $scope.channels = [];
-                                Channels.all().then(function (channels) {
+                                Channels.all().then(function (error, channels) {
+                                    $scope.error = error;
                                     $scope.channels = channels;
                                 });
                             }]
@@ -54,8 +58,10 @@
                         '@': {
                             templateUrl: 'partials/schedule.show.html',
                             controller: ['$scope', '$stateParams', 'Schedules', function ($scope, $stateParams, Schedules) {
+                                $scope.error = null;
                                 $scope.schedule = [];
-                                Schedules.get($stateParams.id).then(function (schedule) {
+                                Schedules.get($stateParams.id).then(function (error, schedule) {
+                                    $scope.error = error;
                                     $scope.schedule = schedule;
                                 });
                             }]
@@ -92,7 +98,7 @@
             return {
                 all: function () {
                     var deferred = $q.defer();
-                    kango.invokeAsync('extension.getChannels', deferred.resolve);
+                    kango.invokeAsyncCallback('extension.getChannels', deferred.resolve);
                     return deferred.promise;
                 },
                 favorite: function (channel) {
@@ -116,7 +122,7 @@
             return {
                 get: function (channelId) {
                     var deferred = $q.defer();
-                    kango.invokeAsync('extension.getSchedule', channelId, deferred.resolve);
+                    kango.invokeAsyncCallback('extension.getSchedule', channelId, deferred.resolve);
                     return deferred.promise;
                 }
             };
@@ -160,6 +166,11 @@
             return {
                 restrict: 'A',
                 template: kango.getExtensionInfo().version
+            };
+        }).
+        filter('resource', function () {
+            return function (path) {
+                return kango.io.getResourceUrl(path);
             };
         }).
         run(['$rootScope', '$state', 'Settings', function ($rootScope, $state, Settings) {

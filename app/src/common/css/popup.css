@@ -1,12 +1,15 @@
 @font-face {
     font-family: 'Roboto Condensed';
-    src: url('../fonts/RobotoCondensed-Regular-webfont.woff') format('woff');
+    font-style: normal;
+    font-weight: 400;
+    src: local('Roboto Condensed Regular'), local('RobotoCondensed-Regular'), url('../fonts/robotocondensed-regular-webfont.woff') format('woff');
 }
 
 @font-face {
     font-family: 'Roboto Condensed';
-    font-weight: bold;
-    src: url('../fonts/RobotoCondensed-Bold-webfont.woff') format('woff');
+    font-style: normal;
+    font-weight: 700;
+    src: local('Roboto Condensed Bold'), local('RobotoCondensed-Bold'), url('../fonts/robotocondensed-bold-webfont.woff') format('woff');
 }
 
 @-webkit-keyframes flashing {
@@ -277,6 +280,15 @@ legend {
 
 .modal-inner {
     margin: auto;
+}
+
+.error {
+    text-align: center;
+}
+
+.error .fa {
+    color: #e6e6e6;
+    font-size: 32px;
 }
 
 /**
