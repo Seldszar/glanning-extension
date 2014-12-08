@@ -17,9 +17,11 @@
                         '@': {
                             templateUrl: 'partials/channels.html',
                             controller: ['$scope', '$stateParams', 'Channels', function ($scope, $stateParams, Channels) {
+                                $scope.error = null;
                                 $scope.channels = [];
-                                Channels.all().then(function (channels) {
-                                    $scope.channels = channels;
+                                Channels.all().then(function (result) {
+                                    $scope.error = result.error;
+                                    $scope.channels = result.channels;
                                 });
                                 $scope.favorite = function (channel) {
                                     Channels.favorite(channel).then(function (result) {
@@ -41,8 +43,8 @@
                             templateUrl: 'partials/schedule.sub-menu.html',
                             controller: ['$scope', 'Channels', function ($scope, Channels) {
                                 $scope.channels = [];
-                                Channels.all().then(function (channels) {
-                                    $scope.channels = channels;
+                                Channels.all().then(function (result) {
+                                    $scope.channels = result.channels;
                                 });
                             }]
                         }
@@ -54,9 +56,11 @@
                         '@': {
                             templateUrl: 'partials/schedule.show.html',
                             controller: ['$scope', '$stateParams', 'Schedules', function ($scope, $stateParams, Schedules) {
+                                $scope.error = null;
                                 $scope.schedule = [];
-                                Schedules.get($stateParams.id).then(function (schedule) {
-                                    $scope.schedule = schedule;
+                                Schedules.get($stateParams.id).then(function (result) {
+                                    $scope.error = result.error;
+                                    $scope.schedule = result.schedule;
                                 });
                             }]
                         }
