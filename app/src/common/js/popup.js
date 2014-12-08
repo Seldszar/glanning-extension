@@ -19,9 +19,9 @@
                             controller: ['$scope', '$stateParams', 'Channels', function ($scope, $stateParams, Channels) {
                                 $scope.error = null;
                                 $scope.channels = [];
-                                Channels.all().then(function (error, channels) {
-                                    $scope.error = error;
-                                    $scope.channels = channels;
+                                Channels.all().then(function (result) {
+                                    $scope.error = result.error;
+                                    $scope.channels = result.channels;
                                 });
                                 $scope.favorite = function (channel) {
                                     Channels.favorite(channel).then(function (result) {
@@ -42,11 +42,9 @@
                         'sub-menu': {
                             templateUrl: 'partials/schedule.sub-menu.html',
                             controller: ['$scope', 'Channels', function ($scope, Channels) {
-                                $scope.error = null;
                                 $scope.channels = [];
-                                Channels.all().then(function (error, channels) {
-                                    $scope.error = error;
-                                    $scope.channels = channels;
+                                Channels.all().then(function (result) {
+                                    $scope.channels = result.channels;
                                 });
                             }]
                         }
@@ -60,9 +58,9 @@
                             controller: ['$scope', '$stateParams', 'Schedules', function ($scope, $stateParams, Schedules) {
                                 $scope.error = null;
                                 $scope.schedule = [];
-                                Schedules.get($stateParams.id).then(function (error, schedule) {
-                                    $scope.error = error;
-                                    $scope.schedule = schedule;
+                                Schedules.get($stateParams.id).then(function (result) {
+                                    $scope.error = result.error;
+                                    $scope.schedule = result.schedule;
                                 });
                             }]
                         }
@@ -98,7 +96,7 @@
             return {
                 all: function () {
                     var deferred = $q.defer();
-                    kango.invokeAsyncCallback('extension.getChannels', deferred.resolve);
+                    kango.invokeAsync('extension.getChannels', deferred.resolve);
                     return deferred.promise;
                 },
                 favorite: function (channel) {
@@ -122,7 +120,7 @@
             return {
                 get: function (channelId) {
                     var deferred = $q.defer();
-                    kango.invokeAsyncCallback('extension.getSchedule', channelId, deferred.resolve);
+                    kango.invokeAsync('extension.getSchedule', channelId, deferred.resolve);
                     return deferred.promise;
                 }
             };
@@ -166,11 +164,6 @@
             return {
                 restrict: 'A',
                 template: kango.getExtensionInfo().version
-            };
-        }).
-        filter('resource', function () {
-            return function (path) {
-                return kango.io.getResourceUrl(path);
             };
         }).
         run(['$rootScope', '$state', 'Settings', function ($rootScope, $state, Settings) {

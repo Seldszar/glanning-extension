@@ -231,18 +231,24 @@
 
                 window.setTimeout(function () {
                     self.refresh();
-                }, self._refreshTimeout * (self._error ? 1.5 : 1));
+                }, self._refreshTimeout);
             });
         },
 
-        getChannels: function (callback) {
-            return callback(this._error, this._data || []);
+        getChannels: function () {
+            return {
+                error: this._error,
+                channels: this._data || []
+            };
         },
 
-        getSchedule: function (id, callback) {
+        getSchedule: function (id) {
             var channel = _.findWhere(this._data, { id_contenu: id }) || {};
 
-            return callback(this._error, channel.planning || []);
+            return {
+                error: this._error,
+                schedule: channel.planning || []
+            };
         },
 
         toggleFavorite: function (id) {
