@@ -1,6 +1,6 @@
 {
   "name": "glanning",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "Restez informé(e) de tout ce qu'il se passe sur Gaming Live.",
   "license": "MIT",
   "devDependencies": {
