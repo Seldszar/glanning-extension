@@ -75,6 +75,12 @@
             1838: 'http://image.jeuxvideo.com/gaming-live/competitions/tv-dayone2-petite.jpg'
         },
 
+        _overrides: {
+            244: {
+                url: 'http://www.twitch.tv/officiel_jvcom'
+            }
+        },
+
         _error: null,
         _data: null,
 
@@ -188,6 +194,8 @@
                         channel.url = self._baseUrl + channel.url;
                         channel.thumbnail_url = self._thumbnails[channel.id_contenu];
                         channel.is_favorite = self.isFavorite(channel.id_contenu);
+
+                        channel = _.extend(channel, self._overrides[channel.id_contenu] || {});
 
                         var last = _.findWhere(self._data, { id_contenu: channel.id_contenu });
 
