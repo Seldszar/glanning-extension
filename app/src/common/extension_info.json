@@ -1,13 +1,14 @@
 {
-    "content_scripts": [],
+    "name": "GL'anning",
+    "version": "0.10.0",
     "description": "Restez informé(e) de tout ce qu'il se passe sur Gaming Live.",
     "creator": "Seldszar",
+    "homepage_url": "http://glanning.seldszar.fr",
     "background_scripts": [
         "js/lib/underscore.min.js",
         "js/lib/moment.min.js",
         "js/background.js"
     ],
-    "version": "0.10.0",
     "browser_button": {
         "caption": "GL'anning",
         "icon": "icons/icon32.png",
@@ -25,6 +26,5 @@
         "xhr": [
             "*://*.jeuxvideo.com/*"
         ]
-    },
-    "name": "GL'anning"
+    }
 }
