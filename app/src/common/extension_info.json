@@ -1,7 +1,7 @@
 {
     "name": "GL'anning",
-    "version": "0.10.0",
-    "description": "Restez informé(e) de tout ce qu'il se passe sur Gaming Live.",
+    "version": "0.10.1",
+    "description": "Restez informés de tout ce qu'il se passe sur Gaming Live.",
     "creator": "Seldszar",
     "homepage_url": "http://glanning.seldszar.fr",
     "background_scripts": [
