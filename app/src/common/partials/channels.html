@@ -1,4 +1,4 @@
-<div open-tab="{{ channel.url }}" class="channel" ng-class="{ offline: !channel.is_live }" ng-if="$root.settings.channels.showOffline || channel.is_live" ng-repeat="channel in channels | orderBy:['-is_favorite', '-nb_viewers', 'titre']">
+<div context-menu data-target="channel-context-menu-{{ channel.id_contenu }}" open-tab="{{ channel.url }}" class="channel" ng-class="{ offline: !channel.is_live }" ng-if="$root.settings.channels.showOffline || channel.is_live" ng-repeat-start="channel in channels | orderBy:['-is_favorite', '-nb_viewers', 'titre']">
     <div class="left">
         <div class="thumbnail" ng-show="$root.settings.channels.showThumbnail">
             <img src="img/channel-placeholder.png" ng-src="{{ channel.thumbnail_url }}" alt="{{ channel.titre }}">
@@ -21,6 +21,22 @@
         </li>
     </ul>
 </div>
+<ul ng-repeat-end class="context-menu" id="channel-context-menu-{{ channel.id_contenu }}">
+    <li>
+        <a ng-if="!channel.is_favorite" ng-click="favorite(channel)"><i class="fa fa-fw fa-star"></i>&nbsp; Mettre en favoris</a>
+        <a ng-if="channel.is_favorite" ng-click="favorite(channel)"><i class="fa fa-fw fa-star-o"></i>&nbsp; Retirer des favoris</a>
+    </li>
+    <li>
+        <a ng-click="share(channel)"><i class="fa fa-fw fa-share-alt"></i>&nbsp; Partager</a>
+    </li>
+    <li class="separator"></li>
+    <li>
+        <a open-tab="{{ channel.links.video }}?autoplay=1"><i class="fa fa-fw fa-video-camera"></i>&nbsp; Vidéo seule</a>
+    </li>
+    <li>
+        <a open-tab="{{ channel.links.chat }}"><i class="fa fa-fw fa-comments"></i>&nbsp; Chat seul</a>
+    </li>
+</ul>
 <div class="modal error" ng-if="error">
     <div class="modal-inner">
         <i class="fa fa-warning"></i>

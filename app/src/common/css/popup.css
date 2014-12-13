@@ -180,19 +180,25 @@ legend {
 
 #menu {
     float: right;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-#menu a {
+#menu > li {
+    float: left;
+    margin-left: 25px;
+}
+
+#menu > li > a {
     color: inherit;
     display: block;
-    float: left;
     font-weight: bold;
     line-height: 40px;
-    margin-left: 25px;
     text-transform: uppercase;
 }
 
-#menu a.active {
+#menu > li > a.active {
     color: #0193d0;
 }
 
@@ -291,6 +297,91 @@ legend {
     font-size: 32px;
 }
 
+.has-dropdown {
+    position: relative;
+}
+
+.dropdown {
+    background: linear-gradient(to bottom, transparent 0%, #efefef 20%, #fff 50%);
+    border: 1px solid #e6e6e6;
+    border-top: none;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, .1);
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 80%;
+    width: 130px;
+    z-index: 1000;
+}
+
+.dropdown li {
+    margin: 0;
+}
+
+.dropdown a {
+    color: inherit;
+    cursor: pointer;
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 6px 12px;
+}
+
+.dropdown a.active {
+    background: none;
+    color: #0193d0;
+}
+
+.has-dropdown:hover .dropdown {
+    display: block;
+}
+
+.context-menu {
+    background-color: #fff;
+    border: 1px solid #e6e6e6;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .1);
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    width: 140px;
+    z-index: 1000;
+}
+
+.context-menu.open {
+    display: block;
+}
+
+.context-menu a {
+    color: inherit;
+    cursor: pointer;
+    display: block;
+    padding: 6px 15px 6px 12px;
+}
+
+.context-menu .fa {
+    color: #aeaeae;
+}
+
+.context-menu a:hover {
+    background-color: #0193d0;
+}
+
+.context-menu a:hover,
+.context-menu a:hover .fa {
+    color: #fff;
+}
+
+.context-menu .separator {
+    border-top: 1px solid #e6e6e6;
+    margin: 5px 0;
+}
+
 /**
  * Channels
  */
@@ -312,6 +403,7 @@ legend {
 
 .channel .thumbnail {
     background-color: #e6e6e6;
+    background-size: cover;
     border-radius: 4px;
     display: block;
     height: 36px;
@@ -417,10 +509,6 @@ legend {
     color: #7a7a7a;
     font-size: 14px;
     font-weight: bold;
-}
-
-.event .title .fa {
-    color: #0193d0;
 }
 
 .event .description {
