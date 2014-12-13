@@ -29,6 +29,10 @@
     <li>
         <a ng-click="share(channel)"><i class="fa fa-fw fa-share-alt"></i>&nbsp; Partager</a>
     </li>
+    <li>
+        <a ng-if="!channel.planning" class="disabled"><i class="fa fa-fw fa-calendar-o"></i>&nbsp; Voir le planning</a>
+        <a ng-if="channel.planning" ui-sref="schedule.show({ type: (channel.is_caster ? 'casters' : 'main'), id: channel.id_contenu })"><i class="fa fa-fw fa-calendar-o"></i>&nbsp; Voir le planning</a>
+    </li>
     <li class="separator"></li>
     <li>
         <a open-tab="{{ channel.links.video }}?autoplay=1"><i class="fa fa-fw fa-video-camera"></i>&nbsp; Vidéo seule</a>
