@@ -364,17 +364,15 @@ legend {
     padding: 6px 15px 6px 12px;
 }
 
-.context-menu .fa {
-    color: #aeaeae;
-}
-
-.context-menu a:hover {
+.context-menu a:not(.disabled):hover {
     background-color: #0193d0;
+    color: #fff;
 }
 
-.context-menu a:hover,
-.context-menu a:hover .fa {
-    color: #fff;
+.context-menu a.disabled {
+    background-color: transparent;
+    color: #e6e6e6;
+    cursor: default;
 }
 
 .context-menu .separator {
