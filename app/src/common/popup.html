@@ -9,11 +9,25 @@
 	<body>
 		<header id="header">
 			<div id="header-inner">
-				<div id="menu">
-					<a ui-sref="channels" ng-class="{ active: $state.includes('channels') }">Chaines</a>
-					<a ui-sref="schedule.show({ id: 1 })" ng-class="{ active: $state.includes('schedule') }">Planning</a>
-					<a ui-sref="infos.about" ng-class="{ active: $state.includes('infos') }">Infos</a>
-				</div>
+				<ul id="menu">
+					<li>
+						<a ui-sref="channels" ng-class="{ active: $state.includes('channels') }">Chaines</a>
+					</li>
+					<li class="has-dropdown">
+						<a ui-sref="schedule.show({ type: 'main' })" ng-class="{ active: $state.includes('schedule') }">Planning &nbsp;<i class="fa fa-caret-down"></i></a>
+						<ul class="dropdown">
+							<li>
+								<a ui-sref="schedule.show({ type: 'main' })" ng-class="{ active: $state.includes('schedule', { type: 'main' }) }">Chaînes principales</a>
+							</li>
+							<li>
+								<a ui-sref="schedule.show({ type: 'casters' })" ng-class="{ active: $state.includes('schedule', { type: 'casters' }) }">Chaînes animateurs</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a ui-sref="infos.about" ng-class="{ active: $state.includes('infos') }">Infos</a>
+					</li>
+				</ul>
 				<div id="logo" extension-version></div>
 			</div>
 			<div ui-view="sub-menu"></div>
@@ -24,6 +38,7 @@
 		<script src="kango-ui/kango_api.js"></script>
 		<script src="js/lib/angular.min.js"></script>
 		<script src="js/lib/angular-ui-router.min.js"></script>
+		<script src="js/lib/ng-context-menu.min.js"></script>
 		<script src="js/lib/i18n/angular-locale_fr-fr.js"></script>
 		<script src="js/analytics.js"></script>
 		<script src="js/popup.js"></script>

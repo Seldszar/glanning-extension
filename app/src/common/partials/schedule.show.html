@@ -2,8 +2,7 @@
     <dl>
         <dd class="date">{{ event.start | date:'shortTime' }} - {{ event.end | date:'shortTime' }}</dd>
         <dt class="title">
-            <i class="fa" ng-class="{ 'fa-caret-down': !isOpen, 'fa-caret-up': isOpen }"></i>
-            {{ event.title }}
+            <i class="fa" ng-class="{ 'fa-caret-down': !isOpen, 'fa-caret-up': isOpen }"></i>&nbsp; {{ event.title }}
         </dt>
         <dd class="description" ng-show="isOpen">{{ event.description }}</dd>
     </dl>

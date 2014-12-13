@@ -2,7 +2,8 @@
     'use strict';
 
     angular.module('popup', [
-        'ui.router'
+        'ui.router',
+        'ng-context-menu'
     ]).
         config(['$compileProvider', function ($compileProvider) {
             $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|chrome-extension):/);
@@ -36,14 +37,14 @@
                     }
                 }).
                 state('schedule', {
-                    url: '/schedule',
+                    url: '/schedule/:type',
                     abstract: true,
                     views: {
                         'sub-menu': {
                             templateUrl: 'partials/schedule.sub-menu.html',
-                            controller: ['$scope', 'Channels', function ($scope, Channels) {
+                            controller: ['$scope', '$stateParams', 'Channels', function ($scope, $stateParams, Channels) {
                                 $scope.channels = [];
-                                Channels.all().then(function (result) {
+                                Channels.query({ is_official: $stateParams.type === 'main' }).then(function (result) {
                                     $scope.channels = result.channels;
                                 });
                             }]
@@ -97,6 +98,11 @@
                 all: function () {
                     var deferred = $q.defer();
                     kango.invokeAsync('extension.getChannels', deferred.resolve);
+                    return deferred.promise;
+                },
+                query: function (properties) {
+                    var deferred = $q.defer();
+                    kango.invokeAsync('extension.getChannels', properties, deferred.resolve);
                     return deferred.promise;
                 },
                 favorite: function (channel) {

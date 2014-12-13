@@ -180,19 +180,25 @@ legend {
 
 #menu {
     float: right;
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-#menu a {
+#menu > li {
+    float: left;
+    margin-left: 25px;
+}
+
+#menu > li > a {
     color: inherit;
     display: block;
-    float: left;
     font-weight: bold;
     line-height: 40px;
-    margin-left: 25px;
     text-transform: uppercase;
 }
 
-#menu a.active {
+#menu > li > a.active {
     color: #0193d0;
 }
 
@@ -289,6 +295,49 @@ legend {
 .error .fa {
     color: #e6e6e6;
     font-size: 32px;
+}
+
+.has-dropdown {
+    position: relative;
+}
+
+.dropdown {
+    background: linear-gradient(to bottom, transparent 0%, #efefef 20%, #fff 50%);
+    border: 1px solid #e6e6e6;
+    border-top: none;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, .1);
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 80%;
+    width: 130px;
+    z-index: 1000;
+}
+
+.dropdown li {
+    margin: 0;
+}
+
+.dropdown a {
+    color: inherit;
+    cursor: pointer;
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 6px 12px;
+}
+
+.dropdown a.active {
+    background: none;
+    color: #0193d0;
+}
+
+.has-dropdown:hover .dropdown {
+    display: block;
 }
 
 /**
@@ -417,10 +466,6 @@ legend {
     color: #7a7a7a;
     font-size: 14px;
     font-weight: bold;
-}
-
-.event .title .fa {
-    color: #0193d0;
 }
 
 .event .description {
