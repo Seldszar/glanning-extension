@@ -17,7 +17,7 @@
                     views: {
                         '@': {
                             templateUrl: 'partials/channels.html',
-                            controller: ['$scope', '$stateParams', 'Channels', function ($scope, $stateParams, Channels) {
+                            controller: ['$scope', 'Channels', function ($scope, Channels) {
                                 $scope.error = null;
                                 $scope.channels = [];
                                 Channels.all().then(function (result) {

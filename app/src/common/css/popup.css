@@ -340,6 +340,48 @@ legend {
     display: block;
 }
 
+.context-menu {
+    background-color: #fff;
+    border: 1px solid #e6e6e6;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .1);
+    display: none;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    width: 140px;
+    z-index: 1000;
+}
+
+.context-menu.open {
+    display: block;
+}
+
+.context-menu a {
+    color: inherit;
+    cursor: pointer;
+    display: block;
+    padding: 6px 15px 6px 12px;
+}
+
+.context-menu .fa {
+    color: #aeaeae;
+}
+
+.context-menu a:hover {
+    background-color: #0193d0;
+}
+
+.context-menu a:hover,
+.context-menu a:hover .fa {
+    color: #fff;
+}
+
+.context-menu .separator {
+    border-top: 1px solid #e6e6e6;
+    margin: 5px 0;
+}
+
 /**
  * Channels
  */
@@ -361,6 +403,7 @@ legend {
 
 .channel .thumbnail {
     background-color: #e6e6e6;
+    background-size: cover;
     border-radius: 4px;
     display: block;
     height: 36px;
