@@ -489,12 +489,14 @@
 
         _soundAlreadyPlayed: false,
 
-        _setOffline: function () {
-            kango.ui.browserButton.setBadgeValue('?');
-        },
-
-        _setBadgeCount: function (count) {
-            kango.ui.browserButton.setBadgeValue(count);
+        _updateBadge: function (value) {
+            if (_.isNumber(value)) {
+                kango.ui.browserButton.setBadgeBackgroundColor([208, 0, 24, 255]);
+                kango.ui.browserButton.setBadgeValue(value);
+            } else {
+                kango.ui.browserButton.setBadgeBackgroundColor([190, 190, 190, 230]);
+                kango.ui.browserButton.setBadgeValue('?');
+            }
         },
 
         _sendNotification: function (channel) {
@@ -573,8 +575,6 @@
                             event.start = moment(event.start).toDate();
                             event.end = moment(event.end).toDate();
                             event.is_current = _.isEqual(_.pick(channel.emission, 'start', 'end'), _.pick(event, 'start', 'end'));
-
-                            return event;
                         }, channel.planning);
 
                         channel.url = self._baseUrl + channel.url;
@@ -605,21 +605,18 @@
                                 }
                             }
                         }
-
-                        return channel;
                     }, value.streams);
 
                     self.log('Parsing complete.');
 
                     self._error = null;
                     self._data = value.streams;
-                    self._setBadgeCount(count);
+                    self._updateBadge(count);
                 } else {
                     self.log('Unable to retrieve data!', '(status code: ' + data.status + ')');
 
                     self._error = data;
-                    self._data = null;
-                    self._setOffline();
+                    self._updateBadge(null);
                 }
 
                 window.setTimeout(function () {
