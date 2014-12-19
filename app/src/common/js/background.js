@@ -18,21 +18,21 @@
                     video: 'http://www.dailymotion.com/embed/video/x1uf230',
                     chat: 'http://webirc.jeuxvideo.com:7778/#gaminglivetv1'
                 },
-                // thumbnail_url: 'http://image.jeuxvideo.com/images-xs/imd/IconeTV1.jpg'
+                thumbnail_url: 'img/channels/1.jpg'
             },
             3: {
                 links: {
                     video: 'http://www.dailymotion.com/embed/video/x1uf23n',
                     chat: 'http://webirc.jeuxvideo.com:7778/#gaminglivetv2'
                 },
-                // thumbnail_url: 'http://image.jeuxvideo.com/images-xs/imd/IconeTV2.jpg'
+                thumbnail_url: 'img/channels/3.jpg'
             },
             6: {
                 links: {
                     video: 'http://www.dailymotion.com/embed/video/x1uf24n',
                     chat: 'http://webirc.jeuxvideo.com:7778/#gaminglivetvdota2'
                 },
-                // thumbnail_url: 'http://image.jeuxvideo.com/images-xs/imd/IconeDota.jpg'
+                thumbnail_url: 'img/channels/6.jpg'
             },
             244: {
                 url: 'http://www.twitch.tv/officiel_jvcom',
@@ -264,14 +264,14 @@
                     video: 'http://www.dailymotion.com/embed/video/x29tfh3',
                     chat: 'http://webirc.jeuxvideo.com:7778/#retroinde'
                 },
-                // thumbnail_url: 'http://image.jeuxvideo.com/images-xs/imd/IconeRetro.jpg'
+                thumbnail_url: 'img/channels/1494.jpg'
             },
             1509: {
                 links: {
                     video: 'http://www.dailymotion.com/embed/video/x29sx15',
                     chat: 'http://webirc.jeuxvideo.com:7778/#dayone'
                 },
-                // thumbnail_url: 'http://image.jeuxvideo.com/images-xs/imd/IconeDayOne.jpg'
+                thumbnail_url: 'img/channels/1509.jpg'
             },
             1520: {
                 links: {
