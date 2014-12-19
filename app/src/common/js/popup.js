@@ -17,11 +17,10 @@
                     views: {
                         '@': {
                             templateUrl: 'partials/channels.html',
-                            controller: ['$scope', 'Channels', function ($scope, Channels) {
-                                $scope.error = null;
+                            controller: ['$rootScope', '$scope', 'Channels', function ($rootScope, $scope, Channels) {
                                 $scope.channels = [];
                                 Channels.all().then(function (result) {
-                                    $scope.error = result.error;
+                                    $rootScope.error = result.error;
                                     $scope.channels = result.channels;
                                 });
                                 $scope.favorite = function (channel) {
@@ -56,11 +55,10 @@
                     views: {
                         '@': {
                             templateUrl: 'partials/schedule.show.html',
-                            controller: ['$scope', '$stateParams', 'Schedules', function ($scope, $stateParams, Schedules) {
-                                $scope.error = null;
+                            controller: ['$rootScope', '$scope', '$stateParams', 'Schedules', function ($rootScope, $scope, $stateParams, Schedules) {
                                 $scope.schedule = [];
                                 Schedules.get($stateParams.id).then(function (result) {
-                                    $scope.error = result.error;
+                                    $rootScope.error = result.error;
                                     $scope.schedule = result.schedule;
                                 });
                             }]
@@ -175,6 +173,7 @@
         run(['$rootScope', '$state', 'Settings', function ($rootScope, $state, Settings) {
             $rootScope.$state = $state;
             $rootScope.settings = {};
+            $rootScope.error = null;
             Settings.all().then(function (settings) {
                 $rootScope.settings = settings;
                 $rootScope.$watch('settings', function (newVal) {
