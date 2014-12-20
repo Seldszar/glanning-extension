@@ -80,14 +80,17 @@ blockquote {
 
 .button {
     background-color: #0193d0;
+    border: 1px solid #0193d0;
     border-radius: 3px;
-    color: #fff !important;
+    color: #fff;
     display: inline-block;
     padding: 6px 12px;
+    transition: all .2s;
 }
 
 .button:hover {
-    background-color: #02a5eb;
+    background-color: transparent;
+    color: #0193d0;
 }
 
 .subfield {
@@ -382,8 +385,7 @@ legend {
 }
 
 .context-menu a:not(.disabled):hover {
-    background-color: #0193d0;
-    color: #fff;
+    color: #0193d0;
 }
 
 .context-menu a.disabled {
@@ -402,7 +404,6 @@ legend {
  */
 
 .channel {
-    transition: background-color .2s;
     border-bottom: 1px solid #e1e1e1;
     cursor: pointer;
     display: block;
@@ -433,10 +434,6 @@ legend {
 
 .channel dl {
     margin: 0;
-}
-
-.channel dl * {
-    transition: color .2s;
 }
 
 .channel dt,
@@ -499,7 +496,6 @@ legend {
  */
 
 .event {
-    transition: background-color .2s;
     border-bottom: 1px solid #e1e1e1;
     cursor: pointer;
     display: block;
@@ -554,12 +550,8 @@ legend {
 }
 
 .social-share > li {
-    display: inline-block;
-    font-size: 32px;
-    padding-right: 5px;
-    padding-left: 5px;
-    text-align: center;
-    width: 32px;
+    float: left;
+    margin-left: 5px;
 }
 
 .copyright {
