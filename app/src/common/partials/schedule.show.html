@@ -4,20 +4,11 @@
         <dt class="title">
             <i class="fa" ng-class="{ 'fa-caret-down': !isOpen, 'fa-caret-up': isOpen }"></i>&nbsp; {{ event.title }}
         </dt>
-        <dd class="description" ng-show="isOpen">{{ event.description }}</dd>
+        <dd class="description" ng-if="isOpen">{{ event.description }}</dd>
     </dl>
 </div>
-<div class="modal" ng-if="!error && !schedule.length">
+<div class="modal" ng-if="!schedule.length">
     <div class="modal-inner">
         Il n'y a aucun programme de prévu pour l'instant...
-    </div>
-</div>
-<div class="modal error" ng-if="error">
-    <div class="modal-inner">
-        <i class="fa fa-warning"></i>
-        <p>
-            Une erreur est survenue durant la récupération des données !<br>
-            (Code d'erreur: {{ error.status }})
-        </p>
     </div>
 </div>

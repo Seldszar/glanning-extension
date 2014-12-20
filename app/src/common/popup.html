@@ -28,7 +28,10 @@
 						<a ui-sref="infos.about" ng-class="{ active: $state.includes('infos') }">Infos</a>
 					</li>
 				</ul>
-				<div id="logo" extension-version></div>
+				<div id="logo">
+					<i ng-if="$root.error" class="fa fa-warning" title="Une erreur est survenue, les données antérieures à celle-ci sont donc utilisées"></i>
+					<span extension-version></span>
+				</div>
 			</div>
 			<div ui-view="sub-menu"></div>
 		</header>
