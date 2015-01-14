@@ -20,7 +20,10 @@
 								<a ui-sref="schedule.show({ type: 'main' })" ng-class="{ active: $state.includes('schedule', { type: 'main' }) }">Chaînes principales</a>
 							</li>
 							<li>
-								<a ui-sref="schedule.show({ type: 'casters' })" ng-class="{ active: $state.includes('schedule', { type: 'casters' }) }">Chaînes animateurs</a>
+								<a ui-sref="schedule.show({ type: 'caster' })" ng-class="{ active: $state.includes('schedule', { type: 'caster' }) }">Animateurs</a>
+							</li>
+							<li>
+								<a ui-sref="schedule.show({ type: 'competition' })" ng-class="{ active: $state.includes('schedule', { type: 'competition' }) }">Compétitions</a>
 							</li>
 						</ul>
 					</li>

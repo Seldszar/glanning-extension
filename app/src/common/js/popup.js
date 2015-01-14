@@ -25,7 +25,7 @@
                                 });
                                 $scope.favorite = function (channel) {
                                     Channels.favorite(channel).then(function (result) {
-                                        broadcast.is_favorite = result;
+                                        channel.isFavorite = result;
                                     });
                                 };
                                 $scope.share = function (channel) {
@@ -43,7 +43,7 @@
                             templateUrl: 'partials/schedule.sub-menu.html',
                             controller: ['$scope', '$stateParams', 'Channels', function ($scope, $stateParams, Channels) {
                                 $scope.channels = [];
-                                Channels.query({ is_official: $stateParams.type === 'main' }).then(function (result) {
+                                Channels.query({ type: $stateParams.type }).then(function (result) {
                                     $scope.channels = result.channels;
                                 });
                             }]
@@ -105,15 +105,15 @@
                 },
                 favorite: function (channel) {
                     var deferred = $q.defer();
-                    kango.invokeAsync('extension.toggleFavorite', channel.id_contenu, deferred.resolve);
+                    kango.invokeAsync('extension.toggleFavorite', channel._id, deferred.resolve);
                     return deferred.promise;
                 },
                 share: function (channel) {
                     var text = 'Je regarde actuellement ';
-                    if (channel.emission) {
-                        text += channel.emission.title + ' sur ';
+                    if (channel.event) {
+                        text += channel.event.title + ' sur ';
                     }
-                    text += channel.titre + ' sur Gaming Live';
+                    text += channel.name + ' sur Gaming Live';
                     kango.browser.tabs.create({
                         url: 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(channel.url)
                     });
