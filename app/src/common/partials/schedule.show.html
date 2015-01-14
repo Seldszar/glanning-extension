@@ -1,10 +1,7 @@
-<div class="event" ng-repeat="event in schedule" ng-init="isOpen = $root.settings.schedule.highlightCurrent && event.is_current" ng-click="isOpen = !isOpen" ng-class="{ current: $root.settings.schedule.highlightCurrent && event.is_current }">
+<div class="event" ng-repeat="event in schedule" ng-class="{ current: $root.settings.schedule.highlightCurrent && event.isCurrent }">
     <dl>
-        <dd class="date">{{ event.start | date:'shortTime' }} - {{ event.end | date:'shortTime' }}</dd>
-        <dt class="title">
-            <i class="fa" ng-class="{ 'fa-caret-down': !isOpen, 'fa-caret-up': isOpen }"></i>&nbsp; {{ event.title }}
-        </dt>
-        <dd class="description" ng-if="isOpen">{{ event.description }}</dd>
+        <dd class="date">{{ event.begin | date:'shortTime' }} - {{ event.end | date:'shortTime' }}</dd>
+        <dt class="title">{{ event.title }}</dt>
     </dl>
 </div>
 <div class="modal" ng-if="!schedule.length">

@@ -497,7 +497,6 @@ legend {
 
 .event {
     border-bottom: 1px solid #e1e1e1;
-    cursor: pointer;
     display: block;
     padding: 11px 20px;
     position: relative;
@@ -520,10 +519,6 @@ legend {
     color: #7a7a7a;
     font-size: 14px;
     font-weight: bold;
-}
-
-.event .description {
-    color: #0193d0;
 }
 
 .event.current:after {
