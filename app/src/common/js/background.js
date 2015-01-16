@@ -2,6 +2,9 @@
     'use strict';
 
     function GamingLive() {
+        window.setInterval(function () {
+            this.refresh();
+        }, this._refreshTimeout);
         this.refresh();
     }
 
@@ -146,10 +149,6 @@
                     self._error = response;
                     self._updateBadge(null);
                 }
-
-                window.setTimeout(function () {
-                    self.refresh();
-                }, self._refreshTimeout);
             });
         },
 
