@@ -2,7 +2,13 @@
     'use strict';
 
     function GamingLive() {
-        this.refresh();
+        var self = this;
+
+        window.setTimeout(function () {
+            self.refresh();
+        }, self._refreshTimeout);
+
+        self.refresh();
     }
 
     GamingLive.prototype = {
@@ -80,11 +86,13 @@
         },
 
         log: function () {
-            Array.prototype.unshift.call(arguments, '[' + moment().format('HH:mm:ss.SSS') + ']');
+            try {
+                Array.prototype.unshift.call(arguments, '[' + moment().format('HH:mm:ss.SSS') + ']');
 
-            if (kango.console) {
-                kango.console.log(Array.prototype.join.call(arguments, ' '));
-            }
+                if (kango.console) {
+                    kango.console.log(Array.prototype.join.call(arguments, ' '));
+                }
+            } catch (ignore) {}
         },
 
         refresh: function () {
@@ -123,7 +131,7 @@
 
                                     self._sendNotification(channel);
                                 } else if (!_.isEqual(channel.event, last.event)) {
-                                    self.log('Channel ' + channel.name + ' had changed his emission from ' + last.event.title + ' to ' + channel.event.title + '.');
+                                    self.log('Channel ' + channel.name + ' had changed his emission from ' + (last.event ? last.event.title : 'none') + ' to ' + (channel.event ? channel.event.title : 'none') + '.');
 
                                     self._sendNotification(channel);
                                 }
@@ -146,10 +154,6 @@
                     self._error = response;
                     self._updateBadge(null);
                 }
-
-                window.setTimeout(function () {
-                    self.refresh();
-                }, self._refreshTimeout);
             });
         },
 
