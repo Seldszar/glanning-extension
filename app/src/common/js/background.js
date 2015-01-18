@@ -4,7 +4,7 @@
     function GamingLive() {
         var self = this;
 
-        window.setTimeout(function () {
+        window.setInterval(function () {
             self.refresh();
         }, self._refreshTimeout);
 
