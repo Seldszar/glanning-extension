@@ -6,8 +6,8 @@
     </div>
     <div class="body">
         <dl>
-            <dd class="viewers" ng-if="!channel.stream">Hors ligne</dd>
-            <dd class="viewers" ng-if="channel.stream">{{ channel.viewers }} spectateurs</dd>
+            <dd class="viewers" ng-if="!channel.online">Hors ligne</dd>
+            <dd class="viewers" ng-if="channel.online">{{ channel.viewers }} spectateurs</dd>
             <dt class="name">{{ channel.name }}</dt>
             <dd class="title" ng-show="$root.settings.channels.showEmission && channel.event">{{ channel.event.title }}</dd>
         </dl>
