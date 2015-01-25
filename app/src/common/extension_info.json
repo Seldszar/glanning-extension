@@ -5,8 +5,7 @@
     "creator": "Seldszar",
     "homepage_url": "http://glanning.seldszar.fr",
     "background_scripts": [
-        "js/lib/underscore.min.js",
-        "js/lib/moment.min.js",
+        "js/lib/lodash.min.js",
         "js/background.js"
     ],
     "browser_button": {
@@ -24,7 +23,8 @@
         "notifications": true,
         "web_navigation": false,
         "xhr": [
-            "*://*.jeuxvideo.com/*"
+            "*://*.jeuxvideo.com/*",
+            "*://glanning.seldszar.fr/*"
         ]
     }
 }

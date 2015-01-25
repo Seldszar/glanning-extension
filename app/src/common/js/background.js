@@ -14,7 +14,8 @@
     GamingLive.prototype = {
 
         _refreshTimeout: 60 * 1000,
-        _feedUrl: 'http://glanning.seldszar.fr:6458/api/channels',
+
+        _baseUrl: 'http://glanning.seldszar.fr:6458/api/',
 
         _error: null,
         _data: null,
@@ -87,7 +88,7 @@
 
         log: function () {
             try {
-                Array.prototype.unshift.call(arguments, '[' + moment().format('HH:mm:ss.SSS') + ']');
+                Array.prototype.unshift.call(arguments, (new Date()).toJSON() + ':');
 
                 if (kango.console) {
                     kango.console.log(Array.prototype.join.call(arguments, ' '));
@@ -98,7 +99,7 @@
         refresh: function () {
             var self = this;
             var details = {
-                url: self._feedUrl,
+                url: self._baseUrl + 'channels',
                 method: 'GET',
                 async: true,
                 contentType: 'json'
@@ -111,7 +112,7 @@
 
                 var response = data.response;
 
-                if (data.status === 200 && data.response !== null) {
+                if (data.status === 200 && !_.isNull(data.response)) {
                     var count = 0;
                     var channels = response.channels;
 
@@ -119,10 +120,10 @@
                         channel.isFavorite = self.isFavorite(channel._id);
 
                         _.map(channel.schedule, function (event) {
-                            event.isCurrent = moment().isAfter(event.begin) && moment().isBefore(event.end);
+                            event.isCurrent = Date.now() >= Date.parse(event.begin) && Date.now() <= Date.parse(event.end);
                         }, channel.schedule);
 
-                        var last = _.findWhere(self._data, { _id: channel._id });
+                        var last = _.find(self._data, { _id: channel._id });
 
                         if (channel.online) {
                             if (last) {
@@ -160,12 +161,12 @@
         getChannels: function (properties) {
             return {
                 error: this._error,
-                channels: _.where(this._data || [], properties || {})
+                channels: _.where(this._data || [], properties || null)
             };
         },
 
         getSchedule: function (id) {
-            var channel = _.findWhere(this._data, { _id: id }) || {};
+            var channel = _.find(this._data, { _id: id }) || {};
 
             return {
                 error: this._error,
