@@ -28,6 +28,11 @@
                                         channel.isFavorite = result;
                                     });
                                 };
+                                $scope.ignore = function (channel) {
+                                    Channels.ignore(channel).then(function (result) {
+                                        channel.isIgnored = result;
+                                    });
+                                };
                                 $scope.share = function (channel) {
                                     Channels.share(channel);
                                 };
@@ -106,6 +111,11 @@
                 favorite: function (channel) {
                     var deferred = $q.defer();
                     kango.invokeAsync('extension.toggleFavorite', channel._id, deferred.resolve);
+                    return deferred.promise;
+                },
+                ignore: function (channel) {
+                    var deferred = $q.defer();
+                    kango.invokeAsync('extension.toggleIgnored', channel._id, deferred.resolve);
                     return deferred.promise;
                 },
                 share: function (channel) {

@@ -27,6 +27,10 @@
         <a ng-if="channel.isFavorite" ng-click="favorite(channel)"><i class="fa fa-fw fa-star-o"></i>&nbsp; Retirer des favoris</a>
     </li>
     <li>
+        <a ng-if="!channel.isIgnored" ng-click="ignore(channel)"><i class="fa fa-fw fa-bell"></i>&nbsp; Ne plus me notifier</a>
+        <a ng-if="channel.isIgnored" ng-click="ignore(channel)"><i class="fa fa-fw fa-bell-slash"></i>&nbsp; Me notifier</a>
+    </li>
+    <li>
         <a ng-click="share(channel)"><i class="fa fa-fw fa-share-alt"></i>&nbsp; Partager</a>
     </li>
     <li>

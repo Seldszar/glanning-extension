@@ -60,6 +60,10 @@
                 return;
             }
 
+            if (channel.isIgnored) {
+                return;
+            }
+
             if (settings.notifications.playSound && !this._soundAlreadyPlayed) {
                 this._playSound(settings.notifications.soundName);
                 this._soundAlreadyPlayed = true;
@@ -118,6 +122,7 @@
 
                     _.map(channels, function (channel) {
                         channel.isFavorite = self.isFavorite(channel._id);
+                        channel.isIgnored = self.isIgnored(channel._id);
 
                         _.map(channel.schedule, function (event) {
                             event.isCurrent = Date.now() >= Date.parse(event.begin) && Date.now() <= Date.parse(event.end);
@@ -181,6 +186,23 @@
             favorites = (exists ? _.without(favorites, id) : _.union(favorites, [id]));
 
             kango.storage.setItem('favorites', favorites);
+
+            return !exists;
+        },
+
+        isIgnored: function (id) {
+            var ignored = kango.storage.getItem('ignored') || [];
+
+            return _.contains(ignored, id);
+        },
+
+        toggleIgnored: function (id) {
+            var ignored = kango.storage.getItem('ignored') || [];
+            var exists = _.contains(ignored, id);
+
+            ignored = (exists ? _.without(ignored, id) : _.union(ignored, [id]));
+
+            kango.storage.setItem('ignored', ignored);
 
             return !exists;
         },
