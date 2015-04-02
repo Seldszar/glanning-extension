@@ -1,6 +1,6 @@
 {
   "name": "glanning",
-  "version": "0.14.4",
+  "version": "0.15.0",
   "description": "Restez informés de tout ce qu'il se passe sur Gaming Live.",
   "private": true,
   "devDependencies": {
