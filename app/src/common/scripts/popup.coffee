@@ -61,7 +61,8 @@ do (document, $ = jQuery.noConflict(true), angular = window.angular, KangoAPI) -
                   $scope.channels = []
 
                   Channels.find({ type: $stateParams.type }).then (channels) ->
-                    $scope.channels = channels
+                    $scope.channels = _.reject channels, (channel) ->
+                      _.isEmpty channel.schedule
               ]
 
         .state "schedules.show",

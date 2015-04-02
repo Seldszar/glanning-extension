@@ -106,7 +106,7 @@ do (window, kango) ->
           Glanning.ui.updateBadge null
 
     channels = (properties) ->
-      _.map _.where(Glanning.cache or [], properties or {}), (channel) =>
+      _.map _.where(Glanning.cache or [], properties or {}), (channel) ->
         channel.favorite = Glanning.favorites.contains channel._id
         channel
 
