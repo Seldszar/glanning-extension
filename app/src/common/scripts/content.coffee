@@ -30,7 +30,7 @@ do (window, document, angular = window.angular) ->
 
     $body.attr
       "ng-controller": "RootController"
-      "ng-class": "{ 'theater-mode': theaterMode, 'darken-mode': settings.darkenMode }"
+      "ng-class": "{ 'theater-mode': theaterMode }"
 
     $container.attr
       "ng-controller": "ChannelController"
@@ -46,37 +46,23 @@ do (window, document, angular = window.angular) ->
       .append "
               <div id='channel-actions' class='btn-toolbar'>
                 <div class='btn-group'>
-                  <button class='btn btn-primary' title='Mettre en favoris' ng-click='favorite()'><i class='fa' ng-class='{ \"fa-star-o\": !channel.favorite, \"fa-star\": channel.favorite }'></i></button>
+                  <button class='btn btn-primary' title='Mettre en favoris' ng-if='channel' ng-click='favorite()'><i class='fa' ng-class='{ \"fa-star-o\": !channel.favorite, \"fa-star\": channel.favorite }'></i></button>
                 </div>
                 <div class='btn-group'>
                   <button class='btn btn-primary' ng-click='toggleTheaterMode()'>Mode théâtre</button>
                 </div>
-                <!--
                 <div class='btn-group'>
                   <button class='btn btn-link' title='Paramètres' ng-click='toggleSettings()'><i class='fa fa-cog'></i></button>
                   <div id='glanning-settings' ng-class='{ \"visible\": settingsVisible }'>
                     <div class='checkbox'>
                       <label>
-                        <input type='checkbox' ng-model='settings.html5Player'>
-                        <span>Utiliser le lecteur Dailymotion HTML5</span>
-                      </label>
-                    </div>
-                    <div class='checkbox'>
-                      <label>
-                        <input type='checkbox' ng-model='settings.twitchEmotes'>
-                        <span>Afficher les émoticones Twitch</span>
-                      </label>
-                    </div>
-                    <div class='checkbox'>
-                      <label>
-                        <input type='checkbox' ng-model='settings.darkenMode'>
-                        <span>Activer le mode sombre</span>
+                        <input type='checkbox' ng-model='settings.showChannelInfos' ng-disabled='!channel'>
+                        <span>Afficher les informations de la chaîne</span>
                       </label>
                     </div>
                   </div>
                 </div>
-                -->
-                <div class='pull-right btn-group'>
+                <div class='pull-right btn-group' ng-if='channel'>
                   <button class='btn' title='Partager sur Facebook' ng-click='share(\"facebook\")'><i class='fa fa-facebook'></i></button>
                   <button class='btn' title='Partager sur Twitter' ng-click='share(\"twitter\")'><i class='fa fa-twitter'></i></button>
                   <button class='btn' title='Partager sur Google+' ng-click='share(\"google-plus\")'><i class='fa fa-google-plus'></i></button>
@@ -85,7 +71,7 @@ do (window, document, angular = window.angular) ->
               "
       .append "<a href='#' id='exit-theater-mode' ng-click='toggleTheaterMode()'>Quitter le mode théâtre</a>"
       .append "
-              <dl id='current-event'>
+              <dl id='current-event' ng-if='settings.showChannelInfos'>
                 <dt>{{ ::channel.name }}</dt>
                 <dd ng-if='channel.event'>{{ channel.event.begin | date:'shortTime' }} - {{ channel.event.end | date:'shortTime' }}: {{ channel.event.title }}</dd>
               </dl>
@@ -104,7 +90,7 @@ do (window, document, angular = window.angular) ->
       "$location"
       "Channels"
       ($scope, $document, $location, Channels) ->
-        $scope.channel = {}
+        $scope.channel = null
         $scope.settingsVisible = false
 
         $scope.favorite = ->
@@ -148,18 +134,18 @@ do (window, document, angular = window.angular) ->
           $document.on "mousemove", mousemove
           $document.on "mouseup", mouseup
 
-        kango.addMessageListener "channel.online", (event) ->
-          result = event.data
-          $scope.channel = result if result._id == $scope.channel._id
-          $scope.$apply()
-
-        kango.addMessageListener "channel.favorite", (event) ->
-          result = event.data
-          $scope.channel.favorite = result.favorite if result._id == $scope.channel._id
-          $scope.$apply()
-
         Channels.find({ url: $location.absUrl().replace($location.hash(), "") }).then (channels) ->
           $scope.channel = channels?[0]
+
+          kango.addMessageListener "channel.online", (event) ->
+            result = event.data
+            $scope.channel = result if result._id == $scope.channel._id
+            $scope.$apply()
+
+          kango.addMessageListener "channel.favorite", (event) ->
+            result = event.data
+            $scope.channel.favorite = result.favorite if result._id == $scope.channel._id
+            $scope.$apply()
     ]
     .controller "RootController", [
       "$scope"

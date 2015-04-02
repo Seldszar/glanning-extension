@@ -106,7 +106,7 @@ do (window, kango) ->
           Glanning.ui.updateBadge null
 
     channels = (properties) ->
-      _.map _.where(Glanning.cache or [], properties or {}), (channel) =>
+      _.map _.where(Glanning.cache or [], properties or {}), (channel) ->
         channel.favorite = Glanning.favorites.contains channel._id
         channel
 
@@ -165,12 +165,10 @@ do (window, kango) ->
           enabled: true
           rightCollapsed: false
           rightWidth: 340
-          html5Player: false
-          darkenMode: false
-          twitchEmotes: false
+          showChannelInfos: true
 
       all: ->
-        _.defaults Glanning.storage.getItem("settings") or {}, @defaults
+        _.defaults @defaults, Glanning.storage.getItem("settings") or {}
 
       get: (propertyPath, defaultValue) ->
         _.deepDefault @all(), propertyPath, defaultValue
