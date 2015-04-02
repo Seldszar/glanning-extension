@@ -4,7 +4,8 @@ do (angular = window.angular) ->
   angular.module "glanning", []
   .factory "Channels", [
     "$q"
-    ($q) ->
+    "$window"
+    ($q, $window) ->
       {
         find: (properties) ->
           deferred = $q.defer()
@@ -19,15 +20,17 @@ do (angular = window.angular) ->
         share: (channel, type = "twitter") ->
           switch type
             when "facebook"
-              kango.browser.tabs.create
-                url: "https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent(channel.url)}"
+              url = "https://www.facebook.com/sharer/sharer.php?u=#{encodeURIComponent(channel.url)}"
             when "google-plus"
-              kango.browser.tabs.create
-                url: "https://plus.google.com/share?url=#{encodeURIComponent(channel.url)}"
+              url = "https://plus.google.com/share?url=#{encodeURIComponent(channel.url)}"
             when "twitter"
               text = "Je regarde actuellement " + (if channel.event then "#{channel.event.title} sur " else "") + "#{channel.name} !"
-              kango.browser.tabs.create
-                url: "https://twitter.com/intent/tweet?text=#{encodeURIComponent(text)}&url=#{encodeURIComponent(channel.url)}&via=GamingLive"
+              url = "https://twitter.com/intent/tweet?text=#{encodeURIComponent(text)}&url=#{encodeURIComponent(channel.url)}&via=GamingLive"
+
+          if kango.browser.tabs
+            kango.browser.tabs.create {url}
+          else
+            $window.open url, "_blank"
       }
   ]
   .factory "Schedules", [

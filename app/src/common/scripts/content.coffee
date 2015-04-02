@@ -134,22 +134,18 @@ do (window, document, angular = window.angular) ->
           $document.on "mousemove", mousemove
           $document.on "mouseup", mouseup
 
-        kango.addMessageListener "channel.online", (event) ->
-          return unless $scope.channel
-
-          result = event.data
-          $scope.channel = result if result._id == $scope.channel._id
-          $scope.$apply()
-
-        kango.addMessageListener "channel.favorite", (event) ->
-          return unless $scope.channel
-
-          result = event.data
-          $scope.channel.favorite = result.favorite if result._id == $scope.channel._id
-          $scope.$apply()
-
         Channels.find({ url: $location.absUrl().replace($location.hash(), "") }).then (channels) ->
           $scope.channel = channels?[0]
+
+          kango.addMessageListener "channel.online", (event) ->
+            result = event.data
+            $scope.channel = result if result._id == $scope.channel._id
+            $scope.$apply()
+
+          kango.addMessageListener "channel.favorite", (event) ->
+            result = event.data
+            $scope.channel.favorite = result.favorite if result._id == $scope.channel._id
+            $scope.$apply()
     ]
     .controller "RootController", [
       "$scope"
