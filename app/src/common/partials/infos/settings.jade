@@ -1,0 +1,54 @@
+.padded
+  h3 Chaînes
+  .checkbox
+    label
+      input(type="checkbox", ng-model="settings.channels.showThumbnail")
+      span Afficher les miniatures des chaînes
+  .checkbox
+    label
+      input(type="checkbox", ng-model="settings.channels.showEmission")
+      span Afficher l'emission en cours
+  .checkbox
+    label
+      input(type="checkbox", ng-model="settings.channels.showOffline")
+      span Afficher les chaînes hors-ligne
+      
+  h3 Planning
+  .checkbox
+    label
+      input(type="checkbox", ng-model="settings.schedule.highlightCurrent")
+      span Mettre en évidence l'émission en cours de diffusion
+
+  h3 Notifications
+  .checkbox
+    label
+      input(type="checkbox", ng-model="settings.notifications.enabled")
+      span Activer les notifications
+  .subfield
+    .checkbox
+      label
+        input(type="checkbox", ng-model="settings.notifications.favoritesOnly", ng-disabled="!settings.notifications.enabled")
+        span Notifier uniquement les favoris
+  .checkbox
+    label
+      input(type="checkbox", ng-model="settings.notifications.playSound")
+      span Activer les notifications sonores
+  .subfield
+    .radio
+      label
+        input(type="radio", ng-model="settings.notifications.soundName", value="ding", ng-disabled="!settings.notifications.playSound")
+        span ding
+    .radio
+      label
+        input(type="radio", ng-model="settings.notifications.soundName", value="chime", ng-disabled="!settings.notifications.playSound")
+        span chime
+    .radio
+      label
+        input(type="radio", ng-model="settings.notifications.soundName", value="click", ng-disabled="!settings.notifications.playSound")
+        span click
+
+  h3 Refonte de la mise en page
+  .checkbox
+    label
+      input(type="checkbox", ng-model="settings.overlay.enabled")
+      span Activer la refonte de la mise en page
