@@ -1,0 +1,7 @@
+.event(ng-repeat="event in schedule", ng-class="{ current: settings.schedule.highlightCurrent && event.isCurrent }")
+  dl
+    dd.date {{ ::event.begin | date:'shortTime' }} - {{ ::event.end | date:'shortTime' }}
+    dt.title {{ ::event.title }}
+
+.modal(ng-if="!schedule.length")
+  .modal-inner Il n'y a aucun programme de prévu pour l'instant...

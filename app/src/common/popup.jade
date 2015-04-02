@@ -1,0 +1,34 @@
+doctype html
+html(ng-controller="RootController")
+  head
+    meta(charset="UTF-8")
+    title GL'anning
+
+    each val in ["styles/font-awesome.min.css", "styles/popup.css"]
+      link(rel="stylesheet", href=val)
+
+  body
+    header#header
+      #header-inner
+        ul#menu
+          li
+            a(ui-sref="channels", ng-class="{ active: $state.includes('channels') }") Chaines
+          li.has-dropdown
+            a(ui-sref="schedules.show({ type: 'main' })", ng-class="{ active: $state.includes('schedules') }") Planning &nbsp; #[i.fa.fa-caret-down]
+            ul.dropdown
+              each val, index in { "main": "Chaînes principales", "caster": "Animateurs", "competition": "Compétitions" }
+                li
+                  a(ui-sref="schedules.show({ type: '#{index}' })", ng-class="{ active: $state.includes('schedules', { type: '#{index}' }) }")= val
+          li
+            a(ui-sref="infos.about", ng-class="{ active: $state.includes('infos') }") Infos
+        #logo
+          span(extension-version)
+          if debug
+            | &nbsp;(dev)
+      ul#sub-menu(ui-view="sub-menu")
+
+    main#content
+      #content-inner(ui-view)
+
+    each val in ["kango-ui/kango_api.js", "scripts/lib/lodash.min.js", "scripts/lib/jquery.min.js", "scripts/lib/angular.min.js", "scripts/lib/angular-ui-router.min.js", "scripts/lib/ng-context-menu.min.js", "scripts/lib/i18n/angular-locale_fr-fr.js", "scripts/lib/jquery.unveil.js", "scripts/glanning.js", "scripts/popup.js"]
+      script(src=val)

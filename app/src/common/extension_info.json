@@ -1,30 +1,30 @@
 {
-    "name": "GL'anning",
-    "version": "0.14.2",
-    "description": "Restez informés de tout ce qu'il se passe sur Gaming Live.",
-    "creator": "Seldszar",
-    "homepage_url": "http://glanning.seldszar.fr",
-    "background_scripts": [
-        "js/lib/underscore.min.js",
-        "js/lib/moment.min.js",
-        "js/background.js"
-    ],
-    "browser_button": {
-        "caption": "GL'anning",
-        "icon": "icons/icon32.png",
-        "tooltipText": "GL'anning",
-        "popup": {
-            "url": "popup.html",
-            "width": 400,
-            "height": 540
-        }
-    },
-    "permissions": {
-        "context_menu": false,
-        "notifications": true,
-        "web_navigation": false,
-        "xhr": [
-            "*://*.jeuxvideo.com/*"
-        ]
+  "name": "GL'anning",
+  "version": "0.15.0",
+  "description": "Restez informés de tout ce qu'il se passe sur Gaming Live.",
+  "creator": "Seldszar",
+  "homepage_url": "http://glanning.seldszar.fr",
+  "background_scripts": [
+    "scripts/lib/lodash.min.js",
+    "scripts/lib/lodash-deep.min.js",
+    "scripts/background.js"
+  ],
+  "content_scripts": [
+    "scripts/content.js"
+  ],
+  "browser_button": {
+    "caption": "GL'anning",
+    "icon": "icons/icon32.png",
+    "tooltipText": "GL'anning",
+    "popup": {
+      "url": "popup.html",
+      "width": 400,
+      "height": 540
     }
+  },
+  "permissions": {
+    "context_menu": false,
+    "notifications": true,
+    "web_navigation": false
+  }
 }

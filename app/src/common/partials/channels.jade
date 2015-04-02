@@ -1,0 +1,44 @@
+.channel(context-menu, data-target="channel-context-menu-{{ ::channel._id }}", open-tab="{{ ::channel.url }}", ng-class="{ offline: !channel.online }", ng-if="settings.channels.showOffline || channel.online", ng-repeat-start="channel in channels | orderBy:['-favorite', '-viewers', 'name']")
+  .left
+    .thumbnail(ng-show="settings.channels.showThumbnail")
+      img(src="images/channel-placeholder.png", data-ng-src="{{ ::channel.thumbnail }}", alt="{{ ::channel.name }}")
+
+  .body
+    dl
+      dd.viewers {{ channel.online ? channel.viewers + ' spectateurs' : 'Hors ligne' }}
+      dt.name {{ ::channel.name }}
+      dd.title(ng-show="settings.channels.showEmission && channel.event") {{ ::channel.event.title }}
+
+  ul.actions(open-tab-ignore)
+    li
+      a(ng-click="favorite(channel)")
+        i.fa(ng-class="{ 'fa-star-o': !channel.favorite, 'fa-star': channel.favorite }")
+    li.show-on-hover
+      a(ng-click="share(channel)")
+        i.fa.fa-ellipsis-v
+
+ul.context-menu(ng-repeat-end, id="channel-context-menu-{{ ::channel._id }}")
+  li
+    a(ng-click="favorite(channel)")
+      i.fa.fa-fw(ng-class="{ 'fa-star': !channel.favorite, 'fa-star-o': channel.favorite }")
+      | &nbsp; {{ channel.favorite ? 'Retirer des favoris' : 'Mettre en favoris' }}
+  li
+    a(ng-click="share(channel)")
+      i.fa.fa-fw.fa-share-alt
+      | &nbsp; Partager
+  li
+    a.disabled(ng-if="!channel.schedule.length")
+      i.fa.fa-fw.fa-calendar-o
+      | &nbsp; Voir le planning
+    a(ng-if="channel.schedule.length", ui-sref="schedules.show({ type: channel.type, id: channel._id })")
+      i.fa.fa-fw.fa-calendar-o
+      | &nbsp; Voir le planning
+  li.separator
+  li
+    a(open-tab="{{ ::channel.videoUrl }}")
+      i.fa.fa-fw.fa-video-camera
+      | &nbsp; Vidéo seule
+  li
+    a(open-tab="{{ ::channel.chatUrl }}")
+      i.fa.fa-fw.fa-comments
+      | &nbsp; Chat seul

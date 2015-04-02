@@ -1,5 +1,0 @@
-<ul id="sub-menu">
-    <li ng-repeat="channel in channels | filter:{ schedule: '!!' } | orderBy:'name'" ui-sref-active="active">
-        <a ui-sref="schedule.show({ id: channel._id })">{{ channel.name }}</a>
-    </li>
-</ul>
