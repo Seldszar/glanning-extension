@@ -16,8 +16,6 @@ do (window, document, angular = window.angular) ->
   kango.invokeAsync "glanning.settings.get", "overlay.enabled", (enabled) ->
     return unless enabled
 
-    toastr.options.positionClass = "toast-top-left"
-
     $head = angular.element "head"
     $body = angular.element "body"
     $container = angular.element ".content-live-chat"
