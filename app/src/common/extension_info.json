@@ -28,7 +28,6 @@
     ],
     "context_menu": false,
     "notifications": true,
-    "tabs": false,
     "web_navigation": false,
     "xhr": [
       "*://*.jeuxvideo.com/*"
