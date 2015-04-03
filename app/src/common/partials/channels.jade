@@ -15,7 +15,7 @@
         i.fa(ng-class="{ 'fa-star-o': !channel.favorite, 'fa-star': channel.favorite }")
     li.show-on-hover
       a(ng-click="share(channel)")
-        i.fa.fa-ellipsis-v
+        i.fa.fa-share-alt
 
 ul.context-menu(ng-repeat-end, id="channel-context-menu-{{ ::channel._id }}")
   li
