@@ -23,8 +23,15 @@
     }
   },
   "permissions": {
+    "content_scripts": [
+      "*://*.jeuxvideo.com/*"
+    ],
     "context_menu": false,
     "notifications": true,
-    "web_navigation": false
+    "tabs": false,
+    "web_navigation": false,
+    "xhr": [
+      "*://*.jeuxvideo.com/*"
+    ]
   }
 }
