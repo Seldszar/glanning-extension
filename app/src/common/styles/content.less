@@ -144,14 +144,22 @@
         background-color: #323844;
         border-color: transparent;
         color: #fff;
+
+        &.btn-link {
+            background-color: transparent;
+            color: #323844;
+        }
     }
 
     .btn-link {
-        color: #323844;
+        color: #000;
     }
 
-    .fa {
-        font-size: 14px;
+    .btn-icon {
+
+        .fa {
+            font-size: 14px;
+        }
     }
 
     .fa-star {
@@ -167,6 +175,8 @@
     font-weight: bold;
     left: 10px;
     line-height: 22px;
+    max-width: 60%;
+    pointer-events: none;
     position: absolute;
     text-shadow: 0 0 10px #000;
     text-transform: uppercase;
@@ -362,6 +372,10 @@ body {
     text-transform: uppercase;
     width: 300px;
     z-index: 500;
+
+    .btn-primary {
+        background-color: lighten(#323844, 10%);
+    }
 
     &:before {
         bottom: -14px;

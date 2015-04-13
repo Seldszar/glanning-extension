@@ -168,7 +168,7 @@ do (window, kango) ->
           showChannelInfos: true
 
       all: ->
-        _.defaults @defaults, Glanning.storage.getItem("settings") or {}
+        _.defaults Glanning.storage.getItem("settings") or {}, @defaults
 
       get: (propertyPath, defaultValue) ->
         _.deepDefault @all(), propertyPath, defaultValue
@@ -218,10 +218,10 @@ do (window, kango) ->
         return unless settings.notifications.enabled
         return if settings.notifications.favoritesOnly && !channel.favorite
 
-        notificationText = "#{channel.name} vient de commencer."
-        notificationText = "#{channel.event.title} sur #{notificationText}" if channel.event
+        text = "est en cours de diffusion"
+        text = "#{channel.event.title} #{text}" if channel.event
 
-        kango.ui.notifications.show kango.getExtensionInfo().name, notificationText, kango.io.getResourceUrl("images/notification-icon.png"), ->
+        kango.ui.notifications.show channel.name, text, kango.io.getResourceUrl("images/notification-icon.png"), ->
           kango.browser.tabs.create
             url: channel.url
 
@@ -242,6 +242,7 @@ do (window, kango) ->
         kango.dispatchMessage name, data
         kango.browser.tabs.getAll (tabs) ->
           tab.dispatchMessage(name, data) for tab in tabs
+          return
 
     Glanning.extend {events}
 
