@@ -82,12 +82,12 @@ do (window, kango) ->
                   Glanning.ui.showNotification channel
                   Glanning.events.emit "channel.online", channel
                 else if !_.isEqual(channel.event, last.event)
-                  oldEvent = last.event?.title or "<none>"
-                  newEvent = channel.event?.title or "<none>"
+                  oldEvent = last.event
+                  newEvent = channel.event
 
-                  Glanning.log "Channel #{channel.name} had changed his emission from #{oldEvent} to #{newEvent}."
+                  Glanning.log "Channel #{channel.name} had changed his emission from #{oldEvent?.title or '<none>'} to #{newEvent?.title or '<none>'}."
 
-                  Glanning.ui.showNotification channel
+                  Glanning.ui.showNotification channel if newEvent
                   Glanning.events.emit "channel.online", channel
 
               count++
@@ -102,7 +102,7 @@ do (window, kango) ->
           Glanning.cache = channels
           Glanning.ui.updateBadge count
         else
-          Glanning.log "Unable to retrieve data!", "(status code: #{err.status})"
+          Glanning.log "Unable to retrieve data! (status code: #{err.status})"
           Glanning.ui.updateBadge null
 
     channels = (properties) ->
