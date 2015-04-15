@@ -16,6 +16,8 @@ do (window, document, angular = window.angular) ->
   kango.invokeAsync "glanning.settings.get", "overlay.enabled", (enabled) ->
     return unless enabled
 
+    $window = angular.element window
+    $document = angular.element document
     $head = angular.element "head"
     $body = angular.element "body"
     $container = angular.element ".content-live-chat"
@@ -74,12 +76,12 @@ do (window, document, angular = window.angular) ->
               "
       .append "<a href='#' id='exit-theater-mode' ng-click='toggleTheaterMode()'>Quitter le mode théâtre</a>"
       .append "
-              <dl id='current-event' ng-if='settings.showChannelInfos'>
+              <dl id='current-event' ng-if='settings.showChannelInfos' ng-hide='forceHideChannelInfos'>
                 <dt>{{ ::channel.name }}</dt>
                 <dd ng-if='channel.event'>{{ channel.event.begin | date:'shortTime' }} - {{ channel.event.end | date:'shortTime' }}: {{ channel.event.title }}</dd>
               </dl>
               "
-      .append "<a href='#' id='right-close' ng-click='toggleRight()'><i class='fa' ng-class='{ \"fa-caret-right\": !settings.rightCollapsed, \"fa-caret-left\": settings.rightCollapsed }'></i></a>"
+      .append "<a href='#' id='right-close' ng-click='toggleRight()' ng-hide='forceHideChannelInfos'><i class='fa' ng-class='{ \"fa-caret-right\": !settings.rightCollapsed, \"fa-caret-left\": settings.rightCollapsed }'></i></a>"
 
     $chat
       .prepend "<div id='right-resizer'></div>"
@@ -91,6 +93,7 @@ do (window, document, angular = window.angular) ->
       "$scope"
       "Channels"
       ($scope, Channels) ->
+        $scope.forceHideChannelInfos = false
         $scope.settingsVisible = false
 
         $scope.favorite = ->
@@ -108,6 +111,14 @@ do (window, document, angular = window.angular) ->
 
         $scope.reloadPlayer = ->
           $playerIframe.attr "src", $playerIframe.attr("src")
+
+        $window.on "blur focus", (event) ->
+          $scope.forceHideChannelInfos = false
+          $scope.$apply()
+
+        $document.on "keydown keyup", (event) ->
+          $scope.forceHideChannelInfos = event.ctrlKey
+          $scope.$apply()
 
         $resizer = angular.element "#right-resizer"
         $resizerOverlay = angular.element "#resizer-overlay"
