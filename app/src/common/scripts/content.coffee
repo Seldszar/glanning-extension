@@ -3,6 +3,7 @@
 // @name GL'anning content script
 // @namespace glanning
 // @include *://www.jeuxvideo.com/gaming-live*
+// @include *://www.jeuxvideo.com/live*
 // @require scripts/lib/jquery.min.js
 // @require scripts/lib/angular.min.js
 // @require scripts/lib/i18n/angular-locale_fr-fr.js
