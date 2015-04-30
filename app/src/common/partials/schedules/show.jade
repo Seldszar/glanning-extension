@@ -1,7 +1,17 @@
-.event(ng-repeat="event in schedule", ng-class="{ current: settings.schedule.highlightCurrent && event.isCurrent }")
-  dl
-    dd.date {{ ::event.begin | date:'shortTime' }} - {{ ::event.end | date:'shortTime' }}
-    dt.title {{ ::event.title }}
+section.block-list
+  ul
+    li.channel.with-chevron(open-tab="{{ ::channel.url }}")
+      .thumbnail(ng-if="settings.channels.showThumbnail", ng-class="{ 'small': settings.channels.smallThumbnail }")
+        img(src="images/channel-placeholder.png", data-ng-src="{{ ::channel.thumbnail }}", alt="{{ ::channel.name }}")
 
-.modal(ng-if="!schedule.length")
-  .modal-inner Il n'y a aucun programme de prévu pour l'instant...
+      .body
+        dl
+          dt {{ ::channel.name }}
+          dd
+            ng-pluralize(count="channel.schedule.length", when="{'0': 'aucune émission', '1': '1 émission', 'other': '{} émissions'}")
+          dd(ng-if="settings.channels.showEmission && channel.status.event", title="{{ ::channel.status.event.name }}") {{ channel.status.event.name }}
+
+    li.event(ng-repeat="event in channel.schedule | orderBy:'start'", ng-class="{ 'current': (event.id == channel.status.event.id) }")
+      dl
+        dt {{ ::event.name }}
+        dd {{ ::event.start | date:'shortTime' }} - {{ ::event.end | date:'shortTime' }}

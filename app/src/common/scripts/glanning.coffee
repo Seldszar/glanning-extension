@@ -7,6 +7,11 @@ do (angular = window.angular) ->
     "$window"
     ($q, $window) ->
       {
+        get: (id) ->
+          deferred = $q.defer()
+          kango.invokeAsync "glanning.channel", id, deferred.resolve
+          deferred.promise
+
         find: (properties) ->
           deferred = $q.defer()
           kango.invokeAsync "glanning.channels", properties, deferred.resolve
@@ -14,7 +19,7 @@ do (angular = window.angular) ->
 
         favorite: (channel) ->
           deferred = $q.defer()
-          kango.invokeAsync "glanning.favorites.toggle", channel._id, deferred.resolve
+          kango.invokeAsync "glanning.favorites.toggle", channel.id, deferred.resolve
           deferred.promise
 
         share: (channel, type = "twitter") ->
@@ -31,16 +36,6 @@ do (angular = window.angular) ->
             kango.browser.tabs.create {url}
           else
             $window.open url, "_blank"
-      }
-  ]
-  .factory "Schedules", [
-    "$q"
-    ($q) ->
-      {
-        get: (channelId) ->
-          deferred = $q.defer()
-          kango.invokeAsync "glanning.schedule", channelId, deferred.resolve
-          deferred.promise
       }
   ]
   .factory "Settings", [

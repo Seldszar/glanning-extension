@@ -1,5 +1,5 @@
 {
     "id": "{6E4D06D8-D67F-46FD-B295-33182AD5ADFF}",
-    "content_security_policy": "script-src 'self' 'unsafe-eval' https://www.google-analytics.com; object-src 'self'",
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
     "web_accessible_resources": ["icons/*", "styles/*", "fonts/*", "images/*", "partials/*"]
 }
