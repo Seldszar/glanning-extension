@@ -78,8 +78,8 @@ do (window, document, angular = window.angular) ->
       .append "<a href='#' id='exit-theater-mode' ng-click='toggleTheaterMode()'>Quitter le mode théâtre</a>"
       .append "
               <dl id='current-event' ng-if='settings.showChannelInfos' ng-hide='forceHideChannelInfos'>
-                <dt>{{ ::channel.name }}</dt>
-                <dd ng-if='channel.event'>{{ channel.event.begin | date:'shortTime' }} - {{ channel.event.end | date:'shortTime' }}: {{ channel.event.title }}</dd>
+                <dt><span>{{ ::channel.name }}</span></dt>
+                <dd ng-if='channel.status.event'><span>{{ channel.status.event.start | date:'shortTime' }} - {{ channel.status.event.end | date:'shortTime' }}: {{ channel.status.event.name }}</span></dd>
               </dl>
               "
       .append "<a href='#' id='right-close' ng-click='toggleRight()' ng-hide='forceHideChannelInfos'><i class='fa' ng-class='{ \"fa-caret-right\": !settings.rightCollapsed, \"fa-caret-left\": settings.rightCollapsed }'></i></a>"
@@ -152,12 +152,12 @@ do (window, document, angular = window.angular) ->
         $scope.$on "channelFound", ->
           kango.addMessageListener "channel.online", (event) ->
             result = event.data
-            $scope.channel = result if result._id == $scope.channel._id
+            $scope.channel = result if result.id == $scope.channel.id
             $scope.$apply()
 
           kango.addMessageListener "channel.favorite", (event) ->
             result = event.data
-            $scope.channel.favorite = result.favorite if result._id == $scope.channel._id
+            $scope.channel.favorite = result.favorite if result.id == $scope.channel.id
             $scope.$apply()
     ]
     .controller "RootController", [

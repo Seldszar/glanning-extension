@@ -35,12 +35,9 @@ do (document, $ = jQuery.noConflict(true), angular = window.angular, KangoAPI) -
                     Channels.favorite(channel).then (favorite) ->
                       channel.favorite = favorite
 
-                  $scope.share = (channel) ->
-                    Channels.share channel
-
                   kango.addMessageListener "channel.favorite", (event) ->
                     result = event.data
-                    _.assign _.findWhere($scope.channels, { _id: result._id }), { favorite: result.favorite }
+                    _.assign _.findWhere($scope.channels, { id: result.id }), { favorite: result.favorite }
                     $scope.$apply()
 
                   Channels.find().then (channels) ->
@@ -48,58 +45,48 @@ do (document, $ = jQuery.noConflict(true), angular = window.angular, KangoAPI) -
               ]
 
         .state "schedules",
-          url: "/schedules/:type"
-          abstract: true,
+          url: "/schedules"
           views:
-            "sub-menu":
-              templateUrl: "partials/schedules/sub-menu.html"
+            "@":
+              templateUrl: "partials/schedules/index.html"
               controller: [
                 "$scope"
-                "$stateParams"
                 "Channels"
-                ($scope, $stateParams, Channels) ->
+                ($scope, Channels) ->
                   $scope.channels = []
 
-                  Channels.find({ type: $stateParams.type }).then (channels) ->
+                  Channels.find().then (channels) ->
                     $scope.channels = _.reject channels, (channel) ->
                       _.isEmpty channel.schedule
               ]
 
         .state "schedules.show",
-          url: "/show/:id"
+          url: "/:id"
           views:
             "@":
               templateUrl: "partials/schedules/show.html"
               controller: [
-                "$rootScope"
                 "$scope"
                 "$stateParams"
-                "Schedules"
-                ($rootScope, $scope, $stateParams, Schedules) ->
-                  $scope.schedule = []
+                "Channels"
+                ($scope, $stateParams, Channels) ->
+                  $scope.channel = null
 
-                  Schedules.get($stateParams.id).then (schedule) ->
-                    $scope.schedule = schedule
+                  Channels.get($stateParams.id).then (channel) ->
+                    $scope.channel = channel
               ]
 
-        .state "infos",
-          url: "/infos"
-          abstract: true
-          views:
-            "sub-menu":
-              templateUrl: "partials/infos/sub-menu.html"
-
-        .state "infos.about",
-          url: "/about"
-          views:
-            "@":
-              templateUrl: "partials/infos/about.html"
-
-        .state "infos.settings",
+        .state "settings",
           url: "/settings"
           views:
             "@":
-              templateUrl: "partials/infos/settings.html"
+              templateUrl: "partials/settings.html"
+
+        .state "about",
+          url: "/about"
+          views:
+            "@":
+              templateUrl: "partials/about.html"
   ]
   .directive "openTab", [
     ->
@@ -109,7 +96,7 @@ do (document, $ = jQuery.noConflict(true), angular = window.angular, KangoAPI) -
           element.on "click", (event) ->
             event.preventDefault()
             kango.browser.tabs.create
-              url: attr.openTab or attr.href
+              url: if attr.openTab isnt "open-tab" then attr.openTab else attr.href
       }
   ]
   .directive "openTabIgnore", [

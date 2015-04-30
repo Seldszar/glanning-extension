@@ -9,26 +9,17 @@ html(ng-controller="RootController")
 
   body
     header#header
-      #header-inner
-        ul#menu
-          li
-            a(ui-sref="channels", ng-class="{ active: $state.includes('channels') }") Chaines
-          li.has-dropdown
-            a(ui-sref="schedules.show({ type: 'main' })", ng-class="{ active: $state.includes('schedules') }") Planning &nbsp; #[i.fa.fa-caret-down]
-            ul.dropdown
-              each val, index in { "main": "Chaînes principales", "caster": "Animateurs", "competition": "Compétitions" }
-                li
-                  a(ui-sref="schedules.show({ type: '#{index}' })", ng-class="{ active: $state.includes('schedules', { type: '#{index}' }) }")= val
-          li
-            a(ui-sref="infos.about", ng-class="{ active: $state.includes('infos') }") Infos
-        #logo
-          span(extension-version)
-          if debug
-            | &nbsp;(dev)
-      ul#sub-menu(ui-view="sub-menu")
+      ul#menu
+        li
+          a(ui-sref="channels", ng-class="{ 'active': $state.includes('channels') }") Chaines
+        li
+          a(ui-sref="schedules", ng-class="{ 'active': $state.includes('schedules') }") Planning
+        li
+          a(ui-sref="settings", ui-sref-active="active") Préférences
+        li
+          a(ui-sref="about", ui-sref-active="active") A propos
 
-    main#content
-      #content-inner(ui-view)
+    main#content(ui-view)
 
     each val in ["kango-ui/kango_api.js", "scripts/lib/lodash.min.js", "scripts/lib/jquery.min.js", "scripts/lib/angular.min.js", "scripts/lib/angular-ui-router.min.js", "scripts/lib/ng-context-menu.min.js", "scripts/lib/i18n/angular-locale_fr-fr.js", "scripts/lib/jquery.unveil.js", "scripts/glanning.js", "scripts/popup.js"]
       script(src=val)

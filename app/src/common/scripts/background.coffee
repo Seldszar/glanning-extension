@@ -6,7 +6,7 @@ do (window, kango) ->
   ###
   do ->
     Glanning =
-      baseUrl: "http://glanning.seldszar.fr:6458/api/"
+      baseUrl: "http://glanning.seldszar.fr/api/"
 
       config:
         refreshInterval: 60000
@@ -59,40 +59,44 @@ do (window, kango) ->
   ###
   do ->
     refresh = ->
-      Glanning.api "channels", (err, data) ->
+      Glanning.api
+        url: "channels"
+        params:
+          filter: "%7B%22include%22%3A%5B%7B%22relation%22%3A%22schedule%22%2C%22scope%22%3A%7B%22today%22%3Atrue%7D%7D%2C%7B%22status%22%3A%5B%22event%22%2C%22source%22%5D%7D%5D%7D"
+      , (err, data) ->
         Glanning.log "Retrieving data..."
 
         if !err && data
           count = 0
-          channels = data.channels
+          channels = data
 
           _.map channels, (channel) =>
-            _.map channel.schedule, (event) ->
-              event.isCurrent = Date.parse(event.begin) <= Date.now() < Date.parse(event.end)
-            , channel.schedule
 
             last = _.findWhere Glanning.cache,
-              _id: channel._id
+              id: channel.id
 
-            if channel.online
-              if last?
-                if !last.online
+            lastStatus = last?.status or {}
+            currentStatus = channel.status
+
+            if currentStatus.online
+              if last
+                if not lastStatus.online
                   Glanning.log "Channel #{channel.name} is now on air."
 
                   Glanning.ui.showNotification channel
                   Glanning.events.emit "channel.online", channel
-                else if !_.isEqual(channel.event, last.event)
-                  oldEvent = last.event
-                  newEvent = channel.event
+                else if currentStatus.event?.id != lastStatus.event?.id
+                  oldEvent = lastStatus.event
+                  newEvent = currentStatus.event
 
-                  Glanning.log "Channel #{channel.name} had changed his emission from #{oldEvent?.title or '<none>'} to #{newEvent?.title or '<none>'}."
+                  Glanning.log "Channel #{channel.name} had changed his emission from #{if oldEvent then oldEvent.name else '<none>'} to #{if oldEvent then oldEvent.name else '<none>'}."
 
                   Glanning.ui.showNotification channel if newEvent
                   Glanning.events.emit "channel.online", channel
 
               count++
             else
-              if last?.online
+              if lastStatus.online
                 Glanning.log "Channel #{channel.name} is now off air."
 
                 Glanning.events.emit "channel.offline", channel
@@ -107,13 +111,13 @@ do (window, kango) ->
 
     channels = (properties) ->
       _.map _.where(Glanning.cache or [], properties or {}), (channel) ->
-        channel.favorite = Glanning.favorites.contains channel._id
+        channel.favorite = Glanning.favorites.contains channel.id
         channel
 
-    schedule = (id) ->
-      _.findWhere(Glanning.cache or [], { _id: id })?.schedule or []
+    channel = (id) ->
+      _.findWhere(Glanning.cache or [], { id: id })
 
-    Glanning.extend {refresh, channels, schedule}
+    Glanning.extend {refresh, channels, channel}
 
   ###
   Favorites
@@ -134,7 +138,7 @@ do (window, kango) ->
 
         Glanning.storage.setItem "favorites", favorites
         Glanning.events.emit "channel.favorite",
-          _id: id
+          id: id
           favorite: !favorite
 
         !favorite
@@ -149,6 +153,7 @@ do (window, kango) ->
       defaults:
         channels:
           showThumbnail: true
+          smallThumbnail: false
           showEmission: true
           showOffline: false
 
@@ -211,15 +216,16 @@ do (window, kango) ->
       showNotification: (channel) ->
         settings = Glanning.settings.all()
 
+        return if settings.notifications.favoritesOnly && !channel.favorite
+
         if settings.notifications.playSound && !Glanning.config.soundAlreadyPlayed
           @playSound settings.notifications.soundName
           Glanning.config.soundAlreadyPlayed = true
 
         return unless settings.notifications.enabled
-        return if settings.notifications.favoritesOnly && !channel.favorite
 
         text = "est en cours de diffusion"
-        text = "#{channel.event.title} #{text}" if channel.event
+        text = "#{channel.status.event.name} #{text}" if channel.status.event
 
         kango.ui.notifications.show channel.name, text, kango.io.getResourceUrl("images/notification-icon.png"), ->
           kango.browser.tabs.create

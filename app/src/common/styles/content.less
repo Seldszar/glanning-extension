@@ -1,15 +1,15 @@
 @font-face {
-    font-family: 'Roboto Condensed';
+    font-family: 'Open Sans';
     font-style: normal;
-    font-weight: 400;
-    src: local('Roboto Condensed Regular'), local('RobotoCondensed-Regular'), url('../fonts/robotocondensed-regular-webfont.woff') format('woff');
+    font-weight: 500;
+    src: local('Open Sans Semibold'), local('OpenSans-Semibold'), url('../fonts/opensans-semibold-webfont.woff') format('woff');
 }
 
 @font-face {
-    font-family: 'Roboto Condensed';
+    font-family: 'Open Sans';
     font-style: normal;
     font-weight: 700;
-    src: local('Roboto Condensed Bold'), local('RobotoCondensed-Bold'), url('../fonts/robotocondensed-bold-webfont.woff') format('woff');
+    src: local('Open Sans Bold'), local('OpenSans-Bold'), url('../fonts/opensans-bold-webfont.woff') format('woff');
 }
 
 #chaine-live {
@@ -170,21 +170,29 @@
 #current-event {
     color: #fff;
     cursor: default;
-    font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 13px;
-    font-weight: bold;
+    font-weight: 500;
     left: 10px;
     line-height: 22px;
     max-width: 60%;
     pointer-events: none;
     position: absolute;
-    text-shadow: 0 0 10px #000;
     text-transform: uppercase;
     top: 10px;
     user-select: none;
 
     dt {
-        font-size: 22px;
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 1px;
+    }
+
+    span {
+        background-color: rgba(0, 0, 0, .7);
+        border-radius: 3px;
+        display: inline-block;
+        padding: 2px 8px;
     }
 }
 
@@ -268,57 +276,6 @@ body {
     }
 }
 
-/**
- * Toastr
- */
-.toast-title {
-    font-weight: bold;
-}
-
-.toast-message {
-    word-wrap: break-word;
-}
-
-.toast-message a,
-.toast-message label {
-   color: #fff;
-}
-
-.toast-message a:hover {
-    color: #ccc;
-    text-decoration: none;
-}
-
-.toast-top-left {
-    top: 12px;
-    left: 12px;
-}
-
-#toast-container {
-    font-family: 'Roboto Condensed', sans-serif;
-    position: fixed;
-    z-index: 999999;
-}
-
-#toast-container * {
-    box-sizing: border-box;
-}
-
-#toast-container > div {
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    margin: 0 0 6px;
-    padding: 15px;
-    width: 300px;
-    border-radius: 3px;
-    color: #212121;
-}
-
-.toast {
-    background-color: #f5f5f5;
-}
-
 .checkbox input[type="checkbox"],
 .radio input[type="radio"] {
     display: none;
@@ -392,19 +349,3 @@ body {
         display: none;
     }
 }
-
-/*
-@media screen and (min-height: 870px) and (min-width: 1320px) {
-
-    #chaine-live {
-
-        .container {
-            width: 1262px;
-        }
-    }
-
-    .content-live-chat {
-        height: 750px;
-    }
-}
-*/

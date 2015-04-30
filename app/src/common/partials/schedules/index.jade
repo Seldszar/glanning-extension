@@ -1,0 +1,12 @@
+section.block-list
+  ul
+    li.channel.with-chevron(ui-sref="schedules.show({ id: channel.id })", ng-repeat="channel in channels | orderBy:'name' track by channel.id")
+      .thumbnail(ng-if="settings.channels.showThumbnail", ng-class="{ 'small': settings.channels.smallThumbnail }")
+        img(src="images/channel-placeholder.png", data-ng-src="{{ ::channel.thumbnail }}", alt="{{ ::channel.name }}")
+
+      .body
+        dl
+          dt {{ ::channel.name }}
+          dd
+            ng-pluralize(count="channel.schedule.length", when="{'0': 'aucune émission', '1': '1 émission', 'other': '{} émissions'}")
+          dd(ng-if="settings.channels.showEmission && channel.status.event", title="{{ ::channel.status.event.name }}") {{ ::channel.status.event.name }}
