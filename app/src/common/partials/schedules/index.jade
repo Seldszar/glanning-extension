@@ -1,6 +1,10 @@
 section.block-list
   ul
-    li.channel.with-chevron(ui-sref="schedules.show({ id: channel.id })", ng-repeat="channel in channels | orderBy:'name' track by channel.id")
+    li.channel.with-chevron(ui-sref="schedules.show({ id: channel.id })", ng-class="{ 'favorite': channel.favorite }", ng-repeat="channel in channels | orderBy:'name' track by channel.id")
+      .actions(open-tab-ignore)
+        a(ng-click="favorite(channel)")
+          i.fa(ng-class="{ 'fa-star': channel.favorite, 'fa-star-o': !channel.favorite }")
+      
       .thumbnail(ng-if="settings.channels.showThumbnail", ng-class="{ 'small': settings.channels.smallThumbnail }")
         img(src="images/channel-placeholder.png", data-ng-src="{{ ::channel.thumbnail }}", alt="{{ ::channel.name }}")
 

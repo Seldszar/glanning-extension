@@ -25,7 +25,7 @@ do (window, kango) ->
       details.url = Glanning.baseUrl + details.url
       details = _.defaults details,
         method: "GET"
-        async: true,
+        async: true
         contentType: "json"
 
       kango.xhr.send details, (data) ->
@@ -70,7 +70,7 @@ do (window, kango) ->
           count = 0
           channels = data
 
-          _.map channels, (channel) =>
+          _.map channels, (channel) ->
 
             last = _.findWhere Glanning.cache,
               id: channel.id
@@ -84,22 +84,20 @@ do (window, kango) ->
                   Glanning.log "Channel #{channel.name} is now on air."
 
                   Glanning.ui.showNotification channel
-                  Glanning.events.emit "channel.online", channel
-                else if currentStatus.event?.id != lastStatus.event?.id
+                else if currentStatus.event?.id isnt lastStatus.event?.id
                   oldEvent = lastStatus.event
                   newEvent = currentStatus.event
 
                   Glanning.log "Channel #{channel.name} had changed his emission from #{if oldEvent then oldEvent.name else '<none>'} to #{if oldEvent then oldEvent.name else '<none>'}."
 
                   Glanning.ui.showNotification channel if newEvent
-                  Glanning.events.emit "channel.online", channel
 
               count++
             else
               if lastStatus.online
                 Glanning.log "Channel #{channel.name} is now off air."
 
-                Glanning.events.emit "channel.offline", channel
+            Glanning.events.emit "channel.status", channel
 
           , channels
 
@@ -135,13 +133,12 @@ do (window, kango) ->
         favorite = @contains id
 
         favorites = if favorite then _.without(favorites, id) else _.union(favorites, [id])
+        favorite = not favorite
 
         Glanning.storage.setItem "favorites", favorites
-        Glanning.events.emit "channel.favorite",
-          id: id
-          favorite: !favorite
+        Glanning.events.emit "channel.favorite", {id, favorite}
 
-        !favorite
+        favorite
 
     Glanning.extend {favorites}
 
@@ -176,14 +173,11 @@ do (window, kango) ->
         _.defaults Glanning.storage.getItem("settings") or {}, @defaults
 
       get: (propertyPath, defaultValue) ->
-        _.deepDefault @all(), propertyPath, defaultValue
+        if _.isUndefined(propertyPath) then @all() else _.get @all(), propertyPath, defaultValue
 
       set: (propertyPath, value) ->
-        settings = @all()
-        settings = if _.isObject(propertyPath) then propertyPath else _.deepSet(settings, propertyPath, value)
-
+        settings = if _.isObject(propertyPath) then propertyPath else _.set @all(), propertyPath, value
         Glanning.storage.setItem "settings", settings
-        settings
 
     Glanning.extend {settings}
 
@@ -191,8 +185,7 @@ do (window, kango) ->
   Storage
   ###
   do ->
-    {storage} = kango
-    Glanning.extend {storage}
+    Glanning.extend {storage: kango.storage}
 
   ###
   User Interface

@@ -2,7 +2,6 @@ doctype html
 html(ng-controller="RootController")
   head
     meta(charset="UTF-8")
-    title GL'anning
 
     each val in ["styles/font-awesome.min.css", "styles/popup.css"]
       link(rel="stylesheet", href=val)
@@ -11,7 +10,7 @@ html(ng-controller="RootController")
     header#header
       ul#menu
         li
-          a(ui-sref="channels", ng-class="{ 'active': $state.includes('channels') }") Chaines
+          a(ui-sref="channels", ui-sref-active="active") Chaines
         li
           a(ui-sref="schedules", ng-class="{ 'active': $state.includes('schedules') }") Planning
         li
@@ -21,5 +20,5 @@ html(ng-controller="RootController")
 
     main#content(ui-view)
 
-    each val in ["kango-ui/kango_api.js", "scripts/lib/lodash.min.js", "scripts/lib/jquery.min.js", "scripts/lib/angular.min.js", "scripts/lib/angular-ui-router.min.js", "scripts/lib/ng-context-menu.min.js", "scripts/lib/i18n/angular-locale_fr-fr.js", "scripts/lib/jquery.unveil.js", "scripts/glanning.js", "scripts/popup.js"]
+    each val in ["kango-ui/kango_api.js", "scripts/lib/lodash.min.js", "scripts/lib/jquery.min.js", "scripts/lib/angular.min.js", "scripts/lib/angular-ui-router.min.js", "scripts/lib/ng-context-menu.min.js", "scripts/lib/jquery.unveil.js", "scripts/glanning.js", "scripts/popup.js"]
       script(src=val)

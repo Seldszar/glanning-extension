@@ -1,21 +1,19 @@
 {
-  "name": "GL'anning",
-  "version": "0.17.0",
+  "name": "Banshee (bêta)",
+  "version": "0.18.0",
   "description": "Restez informés de tout ce qu'il se passe sur Gaming Live.",
   "creator": "Seldszar",
-  "homepage_url": "http://glanning.seldszar.fr",
   "background_scripts": [
     "scripts/lib/lodash.min.js",
-    "scripts/lib/lodash-deep.min.js",
     "scripts/background.js"
   ],
   "content_scripts": [
     "scripts/content.js"
   ],
   "browser_button": {
-    "caption": "GL'anning",
+    "caption": "Banshee (bêta)",
     "icon": "icons/icon32.png",
-    "tooltipText": "GL'anning",
+    "tooltipText": "Banshee (bêta)",
     "popup": {
       "url": "popup.html",
       "width": 400,
