@@ -1,6 +1,10 @@
 section.block-list
   ul
-    li.channel.with-chevron(open-tab="{{ ::channel.url }}")
+    li.channel.with-chevron(open-tab="{{ ::channel.url }}", ng-class="{ 'favorite': channel.favorite }")
+      .actions(open-tab-ignore)
+        a(ng-click="favorite(channel)")
+          i.fa(ng-class="{ 'fa-star': channel.favorite, 'fa-star-o': !channel.favorite }")
+      
       .thumbnail(ng-if="settings.channels.showThumbnail", ng-class="{ 'small': settings.channels.smallThumbnail }")
         img(src="images/channel-placeholder.png", data-ng-src="{{ ::channel.thumbnail }}", alt="{{ ::channel.name }}")
 
@@ -14,4 +18,4 @@ section.block-list
     li.event(ng-repeat="event in channel.schedule | orderBy:'start'", ng-class="{ 'current': (event.id == channel.status.event.id) }")
       dl
         dt {{ ::event.name }}
-        dd {{ ::event.start | date:'shortTime' }} - {{ ::event.end | date:'shortTime' }}
+        dd {{ ::event.start | date:'HH:mm' }} - {{ ::event.end | date:'HH:mm' }}

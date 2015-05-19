@@ -55,6 +55,10 @@ do (document, $ = jQuery.noConflict(true), angular = window.angular, KangoAPI) -
                 ($scope, Channels) ->
                   $scope.channels = []
 
+                  $scope.favorite = (channel) ->
+                    Channels.favorite(channel).then (favorite) ->
+                      channel.favorite = favorite
+
                   Channels.find().then (channels) ->
                     $scope.channels = _.reject channels, (channel) ->
                       _.isEmpty channel.schedule
@@ -71,6 +75,10 @@ do (document, $ = jQuery.noConflict(true), angular = window.angular, KangoAPI) -
                 "Channels"
                 ($scope, $stateParams, Channels) ->
                   $scope.channel = null
+
+                  $scope.favorite = (channel) ->
+                    Channels.favorite(channel).then (favorite) ->
+                      channel.favorite = favorite
 
                   Channels.get($stateParams.id).then (channel) ->
                     $scope.channel = channel

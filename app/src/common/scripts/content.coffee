@@ -4,9 +4,9 @@
 // @namespace glanning
 // @include *://www.jeuxvideo.com/gaming-live*
 // @include *://www.jeuxvideo.com/live*
+// @require scripts/lib/lodash.min.js
 // @require scripts/lib/jquery.min.js
 // @require scripts/lib/angular.min.js
-// @require scripts/lib/i18n/angular-locale_fr-fr.js
 // @require scripts/glanning.js
 // ==/UserScript==
 ###
@@ -63,9 +63,6 @@ do (window, document, angular = window.angular) ->
                         <span>Afficher les informations de la chaîne</span>
                       </label>
                     </div>
-                    <div class='form-group'>
-                      <button class='btn btn-primary btn-block' title='Si votre lecteur ne se charge pas correctement, cliquez sur ce bouton pour effectuer un rafraîchissement forcé de celui-ci' ng-click='reloadPlayer()'>Recharger le lecteur</button>
-                    </div>
                   </div>
                 </div>
                 <div class='pull-right btn-group' ng-if='channel'>
@@ -79,7 +76,7 @@ do (window, document, angular = window.angular) ->
       .append "
               <dl id='current-event' ng-if='settings.showChannelInfos' ng-hide='forceHideChannelInfos'>
                 <dt><span>{{ ::channel.name }}</span></dt>
-                <dd ng-if='channel.status.event'><span>{{ channel.status.event.start | date:'shortTime' }} - {{ channel.status.event.end | date:'shortTime' }}: {{ channel.status.event.name }}</span></dd>
+                <dd ng-if='channel.status.event'><span>{{ channel.status.event.start | date:'HH:mm' }} - {{ channel.status.event.end | date:'HH:mm' }}: {{ channel.status.event.name }}</span></dd>
               </dl>
               "
       .append "<a href='#' id='right-close' ng-click='toggleRight()' ng-hide='forceHideChannelInfos'><i class='fa' ng-class='{ \"fa-caret-right\": !settings.rightCollapsed, \"fa-caret-left\": settings.rightCollapsed }'></i></a>"
@@ -109,9 +106,6 @@ do (window, document, angular = window.angular) ->
 
         $scope.toggleSettings = ->
           $scope.settingsVisible = !$scope.settingsVisible
-
-        $scope.reloadPlayer = ->
-          $playerIframe.attr "src", $playerIframe.attr("src")
 
         $window.on "blur focus", (event) ->
           $scope.forceHideChannelInfos = false
@@ -150,14 +144,14 @@ do (window, document, angular = window.angular) ->
           $document.on "mouseup", mouseup
 
         $scope.$on "channelFound", ->
-          kango.addMessageListener "channel.online", (event) ->
+          kango.addMessageListener "channel.status", (event) ->
             result = event.data
-            $scope.channel = result if result.id == $scope.channel.id
+            $scope.channel = result if result.id is $scope.channel.id
             $scope.$apply()
 
           kango.addMessageListener "channel.favorite", (event) ->
             result = event.data
-            $scope.channel.favorite = result.favorite if result.id == $scope.channel.id
+            $scope.channel.favorite = result.favorite if result.id is $scope.channel.id
             $scope.$apply()
     ]
     .controller "RootController", [
@@ -177,13 +171,13 @@ do (window, document, angular = window.angular) ->
             Settings.set "overlay", value
           , true
 
-        Channels.find({ url: $location.absUrl().replace($location.hash(), "") }).then (channels) ->
-          channel = channels?[0]
-          $scope.channel = channel
-          $scope.$broadcast "channelFound", channel
+        Channels.find().then (channels) ->
+          $scope.channel = _.find channels, (channel) ->
+            _.endsWith channel.url, window.location.pathname
+          $scope.$broadcast "channelFound" if $scope.channel
 
         $scope.toggleTheaterMode = ->
-          $scope.theaterMode = !$scope.theaterMode
+          $scope.theaterMode = not $scope.theaterMode
     ]
 
     angular.bootstrap document, ["glanning.content"]
